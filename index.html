@@ -1,60 +1,117 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>PEPI Brasil</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEPI Digital Shield</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0b1e3c;
-      color: white;
-      text-align: center;
-    }
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background-color: #0b1f3a;
+    color: white;
+    text-align: center;
+}
 
-    .container {
-      padding: 40px 20px;
-    }
+.container {
+    padding: 30px;
+}
 
-    h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
+h1 {
+    font-size: 32px;
+}
 
-    p {
-      font-size: 18px;
-      opacity: 0.8;
-    }
+.button {
+    display: block;
+    margin: 15px auto;
+    padding: 15px;
+    width: 250px;
+    background: #facc15;
+    color: black;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
 
-    .button {
-      margin-top: 30px;
-      display: inline-block;
-      padding: 15px 25px;
-      background-color: #facc15;
-      color: black;
-      font-weight: bold;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 18px;
-    }
+.section {
+    margin-top: 40px;
+}
 
-    .button:hover {
-      background-color: #eab308;
-    }
-  </style>
+.card {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 10px auto;
+    max-width: 400px;
+}
+</style>
+
 </head>
 
 <body>
-  <div class="container">
-    <h1>PEPI Digital Shield</h1>
-    <p>Apostila do Programa de Segurança e Consciência Digital</p>
 
-    <a class="button" 
-       href="https://raw.githubusercontent.com/pepibrasilbr-educacaodigital/Pepiapp/main/PEPI%20BRASIL-%20EDUCA%C3%87%C3%83O%20DIGITAL.pdf" 
-       target="_blank">
-       📄 Abrir Apostila
-    </a>
-  </div>
+<div class="container">
+
+<h1>PEPI Digital Shield</h1>
+<p>Proteção e educação digital para crianças e adolescentes</p>
+
+<!-- MENU PRINCIPAL -->
+<a href="#aluno" class="button">Área do Aluno</a>
+<a href="#gestor" class="button">Área do Gestor</a>
+
+<!-- APRESENTAÇÃO -->
+<div class="section">
+<h2>O que é o PEPI?</h2>
+
+<div class="card">
+Programa de proteção infantil no ambiente digital.
+</div>
+
+<div class="card">
+Ensina segurança, comportamento online e consciência digital.
+</div>
+
+</div>
+
+<!-- ÁREA DO ALUNO -->
+<div id="aluno" class="section">
+<h2>Área do Aluno</h2>
+
+<a class="button" href="pepi.pdf" target="_blank">
+📄 Acessar Apostila
+</a>
+
+<div class="card">
+Aqui o aluno aprende sobre segurança digital de forma prática.
+</div>
+
+<div class="card">
+Em breve: atividades e acompanhamento.
+</div>
+
+</div>
+
+<!-- ÁREA DO GESTOR -->
+<div id="gestor" class="section">
+<h2>Área do Gestor</h2>
+
+<div class="card">
+Relatórios de acompanhamento dos alunos.
+</div>
+
+<div class="card">
+Implementação do programa na escola.
+</div>
+
+<div class="card">
+Treinamento para equipe pedagógica.
+</div>
+
+</div>
+
+</div>
+
 </body>
 </html>
