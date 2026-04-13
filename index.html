@@ -1,85 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PEPI Brasil</title>
 
 <style>
 body {
-  margin:0;
-  font-family:sans-serif;
-  background:#081426;
-  color:white;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(180deg, #081426, #0f223d);
+  color: white;
+  text-align: center;
 }
+
 .container {
-  padding:20px;
+  padding: 30px 20px;
 }
-.card {
-  background:#13263f;
-  padding:15px;
-  border-radius:12px;
-  margin:12px 0;
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
 }
+
+p {
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
 .button {
-  margin:12px 0;
-  padding:16px;
-  background:#facc15;
-  border-radius:12px;
-  text-align:center;
-  font-weight:bold;
+  display: block;
+  padding: 16px;
+  margin: 12px auto;
+  border-radius: 10px;
+  background: #facc15;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  max-width: 300px;
 }
+
 .secondary {
-  background:#1e3a5f;
+  background: #1e3a5f;
+  color: white;
 }
 </style>
+
 </head>
 
 <body>
 
-<div id="app"></div>
-
-<script>
-function home(){
-document.getElementById("app").innerHTML=`
 <div class="container">
-<h2>PEPI Brasil</h2>
-<div class="card">Educação e proteção digital</div>
+  <h1>PEPI Digital Shield</h1>
+  <p>Proteção e educação digital para crianças e adolescentes</p>
 
-<div class="button" onclick="modulo('Segurança Digital')">Segurança Digital</div>
-<div class="button" onclick="modulo('Exposição Online')">Exposição Online</div>
-<div class="button" onclick="modulo('Responsabilidade Legal')">Responsabilidade Legal</div>
-</div>`;
-}
+  <a class="button" href="https://raw.githubusercontent.com/pepibrasilbr-educacaodigital/Pepiapp/main/PEPI%20Digital%20Shield%20Apostila%20.pdf" target="_blank">
+    📘 Acessar Apostila Completa
+  </a>
 
-function modulo(nome){
-document.getElementById("app").innerHTML=`
-<div class="container">
-<h2>${nome}</h2>
+  <a class="button secondary" href="#">
+    📊 Diagnóstico de risco digital
+  </a>
 
-<div class="card">Conteúdo educativo estruturado</div>
-
-<div class="button">Baixar material</div>
-<div class="button" onclick="atividade()">Fazer atividade</div>
-<div class="button secondary" onclick="home()">Voltar</div>
-</div>`;
-}
-
-function atividade(){
-document.getElementById("app").innerHTML=`
-<div class="container">
-<h2>Atividade</h2>
-
-<div class="card">Qual atitude é segura?</div>
-
-<div class="button">Não compartilhar dados</div>
-<div class="button">Aceitar desconhecidos</div>
-
-<div class="button" onclick="home()">Enviar</div>
-</div>`;
-}
-
-home();
-</script>
+  <a class="button secondary" href="#">
+    🎓 Cursos e treinamentos
+  </a>
+</div>
 
 </body>
 </html>
