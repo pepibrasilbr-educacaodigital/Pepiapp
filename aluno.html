@@ -5,81 +5,31 @@
 <title>Área do Aluno</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #0b1f3a;
-  color: white;
+body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
+.topo{padding:20px 40px;display:flex;justify-content:space-between;}
+.nome{color:#f1c40f;font-weight:bold;}
+
+.container{padding:40px;}
+.grid{display:flex;gap:20px;flex-wrap:wrap;}
+
+.card{
+  background:#142c54;
+  padding:20px;
+  border-radius:10px;
+  width:250px;
 }
 
-/* TOPO */
-.topo {
-  padding: 20px 40px;
-  display: flex;
-  justify-content: space-between;
-}
+.locked{opacity:0.4;}
 
-.nome {
-  color: #f1c40f;
-  font-weight: bold;
-}
-
-/* PROGRESSO */
-.progresso-container {
-  padding: 0 40px;
-  margin-bottom: 20px;
-}
-
-.barra-bg {
-  background: #444;
-  height: 12px;
-  border-radius: 10px;
-}
-
-.barra {
-  height: 12px;
-  background: #f1c40f;
-  width: 0%;
-  border-radius: 10px;
-}
-
-/* TEXTO PROGRESSO */
-.info {
-  padding: 0 40px;
-  margin-bottom: 20px;
-}
-
-/* GRID */
-.container {
-  padding: 40px;
-}
-
-.grid {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.card {
-  background: #142c54;
-  padding: 20px;
-  border-radius: 10px;
-  width: 260px;
-}
-
-.locked {
-  opacity: 0.4;
-}
-
-button {
-  margin-top: 10px;
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  background: #f1c40f;
-  font-weight: bold;
-  cursor: pointer;
+button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:6px;
+  background:#f1c40f;
+  font-weight:bold;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -89,14 +39,6 @@ button {
 <div class="topo">
   <div>Área do Aluno</div>
   <div class="nome" id="nomeAluno"></div>
-</div>
-
-<div class="info" id="textoProgresso"></div>
-
-<div class="progresso-container">
-  <div class="barra-bg">
-    <div class="barra" id="barra"></div>
-  </div>
 </div>
 
 <div class="container">
@@ -109,20 +51,14 @@ button {
 document.getElementById("nomeAluno").innerText =
 localStorage.getItem("nome") || "";
 
-// PROGRESSO
+// 🔥 CORREÇÃO IMPORTANTE
 let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
 
-const total = 6;
-
-// CALCULAR %
-let porcentagem = ((atual-1) / total) * 100;
-
-// BARRA
-document.getElementById("barra").style.width = porcentagem + "%";
-
-// TEXTO
-document.getElementById("textoProgresso").innerText =
-"Você concluiu " + (atual-1) + " de " + total + " módulos";
+// 👉 SE PASSOU DO 6, RESETA
+if(atual > 6){
+  atual = 1;
+  localStorage.setItem("moduloAtual", 1);
+}
 
 // MÓDULOS
 const modulos = [
@@ -148,7 +84,7 @@ modulos.forEach((m, index) => {
 
     <button ${liberado ? "" : "disabled"}
     onclick="window.location.href='${m}'">
-      Ver Módulo
+      Acessar
     </button>
   `;
 
