@@ -5,7 +5,12 @@
 <title>Área do Aluno</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b1f3a;
+  color:white;
+}
 
 .topo{
   padding:20px 40px;
@@ -69,25 +74,26 @@ button{
 
 <script>
 
-// NOME
+// MOSTRAR NOME
 document.getElementById("nomeAluno").innerText =
 localStorage.getItem("nome") || "";
 
-// 🔥 CORREÇÃO FORTE
+// PEGAR PROGRESSO
 let atual = parseInt(localStorage.getItem("moduloAtual"));
 
-// 👉 GARANTE QUE SEMPRE TEM VALOR
+// 🔥 CORREÇÃO DEFINITIVA
 if(!atual || atual < 1){
   atual = 1;
-  localStorage.setItem("moduloAtual", 1);
 }
 
-// 👉 NÃO DEIXA QUEBRAR
 if(atual > 6){
   atual = 6;
 }
 
-// MÓDULOS
+// SALVA CORRETO
+localStorage.setItem("moduloAtual", atual);
+
+// LISTA DE MÓDULOS
 const modulos = [
   "modulo1.html",
   "modulo2.html",
@@ -97,6 +103,7 @@ const modulos = [
   "modulo6.html"
 ];
 
+// GRID
 let grid = document.getElementById("grid");
 
 modulos.forEach((m, index) => {
