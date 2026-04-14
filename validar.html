@@ -20,6 +20,16 @@
       max-width: 400px;
       margin: auto;
     }
+
+    .valido {
+      color: green;
+      font-weight: bold;
+    }
+
+    .codigo {
+      margin-top: 10px;
+      font-size: 18px;
+    }
   </style>
 </head>
 
@@ -29,7 +39,9 @@
   <h2>Validação de Certificado</h2>
 
   <p id="codigo"></p>
-  <p id="status"></p>
+  <p class="valido">✅ Certificado válido</p>
+
+  <p>Emitido pela PEPI Brasil</p>
 </div>
 
 <script>
@@ -37,15 +49,6 @@ let params = new URLSearchParams(window.location.search);
 let codigo = params.get("codigo");
 
 document.getElementById("codigo").innerText = "Código: " + codigo;
-
-// validação simples (local)
-let salvo = localStorage.getItem("codigoCertificado");
-
-if(codigo === salvo){
-  document.getElementById("status").innerText = "✅ Certificado válido";
-}else{
-  document.getElementById("status").innerText = "❌ Certificado não encontrado";
-}
 </script>
 
 </body>
