@@ -1,4 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Módulo 6 - Uso Inteligente</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #0b1f3a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .box {
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .button {
+      background: #f1c40f;
+      padding: 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: black;
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .final {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #2ecc71;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Módulo 6 - Uso Inteligente</h1>
+
+<div class="box">
+
+  <p>
+  A internet pode ser uma ferramenta poderosa para aprender, crescer e se desenvolver.
+  </p>
+
+  <p>
+  O uso inteligente envolve responsabilidade, equilíbrio e consciência.
+  </p>
+
+  <p>
+  Utilize a tecnologia para evoluir, estudar e construir um futuro melhor.
+  </p>
+
+  <button class="button" onclick="concluir()">Marcar como concluído</button>
+
+  <p id="status"></p>
+
+  <div id="finalMsg" class="final"></div>
+
+  <button id="btnCertificado" class="button" onclick="gerarCertificado()" style="display:none;">
+    🎓 Gerar Certificado
+  </button>
+
+  <a class="button" href="pepi.pdf" target="_blank">
+    Ver conteúdo completo
+  </a>
+
+</div>
+
+<br>
+
+<a href="aluno.html" class="button">⬅ Voltar</a>
+
 <script>
+function concluir(){
+  localStorage.setItem("modulo6", "concluido");
+  document.getElementById("status").innerText = "✅ Aula concluída!";
+  verificarFinal();
+}
+
+function verificarFinal(){
+  let completo = true;
+
+  for(let i=1; i<=6; i++){
+    if(!localStorage.getItem("modulo"+i)){
+      completo = false;
+    }
+  }
+
+  if(completo){
+    document.getElementById("finalMsg").innerText =
+      "🎉 Parabéns! Você concluiu todo o programa!";
+    
+    document.getElementById("btnCertificado").style.display = "inline-block";
+  }
+}
+
 function gerarCertificado(){
   let nome = localStorage.getItem("nomeAluno");
   let turma = localStorage.getItem("turmaAluno");
@@ -50,10 +156,6 @@ function gerarCertificado(){
           margin: 10px 0;
         }
 
-        .destaque {
-          font-weight: bold;
-        }
-
         .footer {
           margin-top: 40px;
           font-size: 14px;
@@ -73,11 +175,11 @@ function gerarCertificado(){
 
           <h2>${nome}</h2>
 
-          <p>da turma <span class="destaque">${turma}</span></p>
+          <p>da turma ${turma}</p>
 
           <p>concluiu com êxito o programa</p>
 
-          <p class="destaque">PEPI Digital Shield</p>
+          <p><strong>PEPI Digital Shield</strong></p>
 
           <p>Educação e Segurança Digital</p>
 
@@ -92,4 +194,13 @@ function gerarCertificado(){
     </html>
   `);
 }
+
+if(localStorage.getItem("modulo6") === "concluido"){
+  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+}
+
+verificarFinal();
 </script>
+
+</body>
+</html>
