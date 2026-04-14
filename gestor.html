@@ -32,28 +32,23 @@
       padding: 20px;
     }
 
-    .cards {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 20px;
+    .btn-relatorio {
+      margin: 10px 0;
+      padding: 12px;
+      background: #0b1f3a;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     .card-top {
       background: white;
       padding: 20px;
       border-radius: 10px;
-      flex: 1;
       text-align: center;
-    }
-
-    .btn-relatorio {
-      margin: 10px 0;
-      padding: 10px;
-      background: #0b1f3a;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+      margin-bottom: 20px;
     }
 
     .escola {
@@ -63,14 +58,6 @@
       margin-top: 20px;
     }
 
-    .card {
-      background: #f9fafc;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-    }
   </style>
 </head>
 
@@ -84,17 +71,13 @@
 <div class="container">
 
   <button class="btn-relatorio" onclick="gerarRelatorio()">
-    📄 Gerar Relatório
+    📄 Gerar Relatório Profissional
   </button>
 
-  <div class="cards">
-    <div class="card-top">
-      <h2 id="total">0</h2>
-      <p>Certificados</p>
-    </div>
+  <div class="card-top">
+    <h2 id="total">0</h2>
+    <p>Total de Certificados</p>
   </div>
-
-  <canvas id="grafico"></canvas>
 
   <div id="lista"></div>
 
@@ -103,7 +86,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 const firebaseConfig = {
@@ -131,8 +113,7 @@ firebase.auth().onAuthStateChanged(user => {
 
     dadosGlobais = [];
 
-    let total = snapshot.size;
-    document.getElementById("total").innerText = total;
+    document.getElementById("total").innerText = snapshot.size;
 
     let escolas = {};
     let html = "";
@@ -147,28 +128,21 @@ firebase.auth().onAuthStateChanged(user => {
       });
 
       if(!escolas[d.escola]){
-        escolas[d.escola] = 0;
+        escolas[d.escola] = [];
       }
 
-      escolas[d.escola]++;
+      escolas[d.escola].push(d);
 
     });
 
-    // gráfico
-    new Chart(document.getElementById("grafico"), {
-      type: "bar",
-      data: {
-        labels: Object.keys(escolas),
-        datasets: [{
-          label: "Certificados por escola",
-          data: Object.values(escolas)
-        }]
-      }
-    });
-
-    // lista
     for(let escola in escolas){
-      html += `<div class="escola"><h3>${escola}</h3></div>`;
+
+      html += `
+        <div class="escola">
+          <h3 style="color:#0b1f3a;">🏫 ${escola}</h3>
+          <p>${escolas[escola].length} alunos certificados</p>
+        </div>
+      `;
     }
 
     document.getElementById("lista").innerHTML = html;
@@ -177,33 +151,76 @@ firebase.auth().onAuthStateChanged(user => {
 
 });
 
-// 🔥 RELATÓRIO
+
+// 🔥 RELATÓRIO PREMIUM
 function gerarRelatorio(){
 
-  let lista = "";
+  let agrupado = {};
 
   dadosGlobais.forEach(item => {
-    lista += `<p>${item.nome} - ${item.turma} (${item.escola})</p>`;
+    if(!agrupado[item.escola]){
+      agrupado[item.escola] = [];
+    }
+    agrupado[item.escola].push(item);
   });
+
+  let htmlEscolas = "";
+
+  for(let escola in agrupado){
+
+    htmlEscolas += `
+      <div style="margin-bottom:30px;">
+        <h2 style="color:#0b1f3a;">🏫 ${escola}</h2>
+        <p><strong>Total:</strong> ${agrupado[escola].length} alunos</p>
+    `;
+
+    agrupado[escola].forEach(aluno => {
+      htmlEscolas += `
+        <p>• ${aluno.nome} — ${aluno.turma}</p>
+      `;
+    });
+
+    htmlEscolas += `</div>`;
+  }
 
   let novaJanela = window.open("", "_blank");
 
   novaJanela.document.write(`
     <html>
-    <body style="font-family:Arial;padding:40px;">
-      <h1>Relatório PEPI Brasil</h1>
+    <body style="font-family:Arial;margin:0;">
 
-      <p><strong>Total de certificados:</strong> ${dadosGlobais.length}</p>
+      <div style="background:#0b1f3a;color:white;padding:30px;text-align:center;">
+        <h1>PEPI Brasil</h1>
+        <p>Relatório Oficial de Certificação</p>
+      </div>
 
-      <h3>Alunos:</h3>
-      ${lista}
+      <div style="padding:30px;">
 
-      <br><br>
-      <button onclick="window.print()">Baixar PDF</button>
+        <h2 style="color:#c9a227;">Resumo Geral</h2>
+        <p><strong>Total de certificados emitidos:</strong> ${dadosGlobais.length}</p>
+
+        ${htmlEscolas}
+
+        <br><br>
+
+        <button onclick="window.print()" style="
+          padding:12px;
+          background:#0b1f3a;
+          color:white;
+          border:none;
+          border-radius:8px;
+          cursor:pointer;
+        ">
+          📄 Baixar PDF
+        </button>
+
+      </div>
+
     </body>
     </html>
   `);
 }
+
 
 // logout
 function logout(){
