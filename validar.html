@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Validação de Certificado</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 50px;
+      background: #0b1f3a;
+      color: white;
+    }
+
+    .box {
+      background: white;
+      color: black;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Validação de Certificado</h2>
+
+  <p id="codigo"></p>
+  <p id="status"></p>
+</div>
+
+<script>
+let params = new URLSearchParams(window.location.search);
+let codigo = params.get("codigo");
+
+document.getElementById("codigo").innerText = "Código: " + codigo;
+
+// validação simples (local)
+let salvo = localStorage.getItem("codigoCertificado");
+
+if(codigo === salvo){
+  document.getElementById("status").innerText = "✅ Certificado válido";
+}else{
+  document.getElementById("status").innerText = "❌ Certificado não encontrado";
+}
+</script>
+
+</body>
+</html>
