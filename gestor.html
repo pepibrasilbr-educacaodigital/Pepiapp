@@ -1,33 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Área do Gestor</title>
+  <title>Painel do Gestor - PEPI</title>
 
   <style>
     body {
+      margin: 0;
       font-family: Arial;
-      background-color: #0b1f3a;
+      background: linear-gradient(180deg, #0b1f3a, #07142a);
       color: white;
       text-align: center;
-      padding: 30px;
+      padding: 20px;
     }
 
-    .box {
-      background: white;
-      color: black;
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .card {
+      background: #0f2a52;
       padding: 20px;
-      margin: 15px;
-      border-radius: 12px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .number {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #facc15;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .ok {
+      color: #2ecc71;
+    }
+
+    .warn {
+      color: #e74c3c;
     }
 
     .button {
-      background: #f1c40f;
-      padding: 15px;
+      display: block;
+      margin-top: 20px;
+      padding: 12px;
+      background: #facc15;
+      color: black;
       border-radius: 10px;
       text-decoration: none;
-      color: black;
-      display: inline-block;
-      margin-top: 20px;
       font-weight: bold;
     }
   </style>
@@ -35,17 +67,56 @@
 
 <body>
 
-<h1>Área do Gestor</h1>
+<h1>Painel do Gestor</h1>
 
-<div class="box">
-  Relatórios e acompanhamento dos alunos
-</div>
+<div class="dashboard">
 
-<div class="box">
-  Gestão de conteúdos e turmas
+  <div class="card">
+    <h3>Progresso Geral</h3>
+    <div id="progresso" class="number">0%</div>
+  </div>
+
+  <div class="card">
+    <h3>Status do Programa</h3>
+    <div id="status" class="status">Carregando...</div>
+  </div>
+
+  <div class="card">
+    <h3>Módulos Concluídos</h3>
+    <div id="modulos" class="number">0 / 6</div>
+  </div>
+
 </div>
 
 <a href="index.html" class="button">⬅ Voltar</a>
+
+<script>
+function atualizar(){
+  let total = 6;
+  let feitos = 0;
+
+  for(let i=1; i<=6; i++){
+    if(localStorage.getItem("modulo"+i)){
+      feitos++;
+    }
+  }
+
+  let porcentagem = Math.round((feitos/total)*100);
+
+  document.getElementById("progresso").innerText = porcentagem + "%";
+  document.getElementById("modulos").innerText = feitos + " / " + total;
+
+  if(porcentagem === 100){
+    document.getElementById("status").innerText = "Programa concluído";
+    document.getElementById("status").classList.add("ok");
+  } else {
+    document.getElementById("status").innerText = "Em andamento";
+    document.getElementById("status").classList.add("warn");
+  }
+}
+
+atualizar();
+</script>
 
 </body>
 </html>
