@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cadastrar Escola</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #0b1f3a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      width: 320px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      background: #f1c40f;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Cadastrar Escola</h2>
+
+  <input type="text" id="escola" placeholder="Nome da escola">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="senha" placeholder="Senha">
+
+  <button onclick="cadastrar()">Criar Conta</button>
+
+  <p id="msg"></p>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
+  authDomain: "pepi-brasil.firebaseapp.com",
+  projectId: "pepi-brasil"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function cadastrar(){
+
+  let escola = document.getElementById("escola").value;
+  let email = document.getElementById("email").value;
+  let senha = document.getElementById("senha").value;
+
+  firebase.auth().createUserWithEmailAndPassword(email, senha)
+  .then(userCredential => {
+
+    let uid = userCredential.user.uid;
+
+    // 🔥 salva escola no banco
+    db.collection("gestores").doc(uid).set({
+      escola: escola,
+      email: email
+    });
+
+    // salva no navegador
+    localStorage.setItem("escola", escola);
+
+    window.location.href = "gestor.html";
+
+  })
+  .catch(error => {
+    document.getElementById("msg").innerText = error.message;
+  });
+}
+</script>
+
+</body>
+</html>
