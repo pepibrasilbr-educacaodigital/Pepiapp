@@ -1,102 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Módulo 6 - Uso Inteligente</title>
-
-  <style>
-    body {
-      font-family: Arial;
-      background: #0b1f3a;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .box {
-      background: white;
-      color: black;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: auto;
-    }
-
-    .button {
-      background: #f1c40f;
-      padding: 12px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: black;
-      display: inline-block;
-      margin-top: 10px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
-
-    .final {
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #2ecc71;
-    }
-  </style>
-</head>
-
-<body>
-
-<h1>Módulo 6 - Uso Inteligente</h1>
-
-<div class="box">
-
-  <p>A internet pode ser uma ferramenta poderosa para aprender e crescer.</p>
-
-  <button class="button" onclick="concluir()">Marcar como concluído</button>
-
-  <p id="status"></p>
-
-  <div id="finalMsg" class="final"></div>
-
-  <button id="btnCertificado" class="button" onclick="gerarCertificado()" style="display:none;">
-    🎓 Ver Certificado
-  </button>
-
-</div>
-
-<br>
-
-<a href="aluno.html" class="button">⬅ Voltar</a>
-
-<script>
-function concluir(){
-  localStorage.setItem("modulo6", "concluido");
-  document.getElementById("status").innerText = "✅ Aula concluída!";
-  verificarFinal();
-}
-
-function verificarFinal(){
-  let completo = true;
-
-  for(let i=1; i<=6; i++){
-    if(!localStorage.getItem("modulo"+i)){
-      completo = false;
-    }
-  }
-
-  if(completo){
-    document.getElementById("finalMsg").innerText =
-      "🎉 Parabéns! Você concluiu todo o programa!";
-    
-    document.getElementById("btnCertificado").style.display = "inline-block";
-  }
-}
-
 function gerarCertificado(){
   let nome = localStorage.getItem("nomeAluno");
   let turma = localStorage.getItem("turmaAluno");
   let data = new Date().toLocaleDateString("pt-BR");
 
-  let qr = "https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://pepibrasilbr-educacaodigital.github.io/Pepiapp/";
+  // GERAR CÓDIGO ÚNICO
+  let codigo = "PEPI-" + Math.floor(10000 + Math.random() * 90000);
+
+  // SALVAR
+  localStorage.setItem("codigoCertificado", codigo);
+
+  let qr = "https://pepibrasilbr-educacaodigital.github.io/Pepiapp/validar.html?codigo=" + codigo;
 
   let novaJanela = window.open("", "_blank");
 
@@ -119,49 +32,28 @@ function gerarCertificado(){
           padding: 60px;
           background: white;
           border: 6px solid #0b1f3a;
-          box-shadow: 0 0 30px rgba(0,0,0,0.2);
           display: flex;
           flex-direction: column;
           justify-content: space-between;
         }
 
-        .topo {
-          text-align: center;
-        }
+        .topo { text-align: center; }
 
-        .logo img {
-          width: 80px;
-          margin-bottom: 10px;
-        }
+        .logo img { width: 80px; }
 
         h1 {
           font-size: 38px;
-          letter-spacing: 3px;
           color: #0b1f3a;
         }
 
-        .linha-topo {
-          width: 200px;
-          height: 2px;
-          background: #0b1f3a;
-          margin: 10px auto 20px;
-        }
-
-        .conteudo {
-          text-align: center;
-          line-height: 1.6;
-        }
+        .conteudo { text-align: center; }
 
         h2 {
           font-size: 32px;
-          margin: 15px 0;
           color: #c9a227;
-          font-weight: normal;
         }
 
-        p {
-          font-size: 18px;
-        }
+        p { font-size: 18px; }
 
         .rodape {
           display: flex;
@@ -169,37 +61,22 @@ function gerarCertificado(){
           align-items: center;
         }
 
-        .assinatura {
-          text-align: center;
-        }
-
         .linha {
           width: 220px;
-          border-top: 1.5px solid black;
+          border-top: 1px solid black;
           margin: 10px auto;
         }
 
-        .qr img {
-          width: 90px;
+        .codigo {
+          font-size: 14px;
+          margin-top: 10px;
         }
 
-        .print {
-          text-align: center;
-          margin-top: 15px;
-        }
-
-        button {
-          padding: 10px;
-          font-size: 16px;
-          cursor: pointer;
-        }
+        .qr img { width: 90px; }
 
         @media print {
-          button {
-            display: none;
-          }
+          button { display: none; }
         }
-
       </style>
     </head>
 
@@ -211,51 +88,38 @@ function gerarCertificado(){
           <div class="logo">
             <img src="logo.PNG">
           </div>
-
           <h1>CERTIFICADO</h1>
-
-          <div class="linha-topo"></div>
         </div>
 
         <div class="conteudo">
           <p>Certificamos que</p>
-
           <h2>${nome}</h2>
-
           <p>da turma ${turma}</p>
-
-          <p>concluiu com êxito o programa</p>
-
-          <p><strong>PEPI Digital Shield</strong></p>
-
-          <p>Educação e Segurança Digital</p>
+          <p>concluiu o programa PEPI Digital Shield</p>
         </div>
 
         <div class="rodape">
 
-          <div class="assinatura">
+          <div>
             <div class="linha"></div>
-            <p>Coordenação PEPI Brasil</p>
+            <p>Coordenação PEPI</p>
             <p>${data}</p>
+            <div class="codigo">Código: ${codigo}</div>
           </div>
 
           <div class="qr">
-            <img src="${qr}">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${qr}">
           </div>
 
         </div>
 
       </div>
 
-      <div class="print">
-        <button onclick="window.print()">📄 Baixar / Imprimir PDF</button>
+      <div style="text-align:center;">
+        <button onclick="window.print()">📄 Baixar PDF</button>
       </div>
 
     </body>
     </html>
   `);
 }
-</script>
-
-</body>
-</html>
