@@ -15,7 +15,6 @@ body {
   height: 100vh;
 }
 
-/* CERTIFICADO */
 .certificado {
   width: 900px;
   background: white;
@@ -25,7 +24,6 @@ body {
   position: relative;
 }
 
-/* DETALHE DOURADO */
 .certificado::before {
   content: "";
   position: absolute;
@@ -36,59 +34,49 @@ body {
   border: 2px solid #f1c40f;
 }
 
-/* TITULO */
 h1 {
   font-size: 36px;
   color: #0b1f3a;
-  margin-bottom: 10px;
 }
 
-/* SUB */
-.sub {
-  font-size: 14px;
-  color: #555;
-}
-
-/* NOME */
 .nome {
   font-size: 32px;
   font-weight: bold;
   margin: 25px 0;
-  color: #000;
 }
 
-/* TEXTO */
-.texto {
-  font-size: 16px;
-  margin: 10px 0;
-}
-
-/* CURSO */
 .curso {
   font-size: 20px;
   font-weight: bold;
   margin: 20px 0;
 }
 
-/* INFO */
 .info {
-  margin-top: 15px;
-  font-size: 14px;
+  margin-top: 10px;
 }
 
-/* RODAPÉ */
 .footer {
   margin-top: 40px;
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
-  color: #555;
+  align-items: center;
 }
 
-/* BOTÃO */
+.assinatura {
+  text-align: left;
+}
+
+.assinatura img {
+  width: 150px;
+}
+
+.qr {
+  text-align: right;
+}
+
 button {
-  margin-top: 25px;
-  padding: 12px 20px;
+  margin-top: 20px;
+  padding: 12px;
   border: none;
   border-radius: 8px;
   background: #f1c40f;
@@ -103,22 +91,33 @@ button {
 <div class="certificado">
 
   <h1>Certificado de Conclusão</h1>
-  <div class="sub">PEPI Brasil • Educação Digital</div>
 
-  <div class="texto">Certificamos que</div>
+  <p>Certificamos que</p>
 
   <div class="nome" id="nome"></div>
 
-  <div class="texto">concluiu com êxito o programa de</div>
+  <p>concluiu o programa de</p>
 
   <div class="curso">Educação Digital e Proteção Online</div>
 
   <div class="info" id="escola"></div>
   <div class="info" id="data"></div>
+  <div class="info" id="codigo"></div>
 
   <div class="footer">
-    <div>PEPI Brasil</div>
-    <div>Educação Digital para Todos</div>
+
+    <!-- ASSINATURA -->
+    <div class="assinatura">
+      <img src="assinatura.png">
+      <div>Direção PEPI Brasil</div>
+    </div>
+
+    <!-- QR CODE -->
+    <div class="qr">
+      <img id="qrcode">
+      <div style="font-size:12px;">Validar certificado</div>
+    </div>
+
   </div>
 
   <button onclick="window.print()">🖨️ Baixar / Imprimir</button>
@@ -127,18 +126,27 @@ button {
 
 <script>
 
-// NOME
-document.getElementById("nome").innerText =
-localStorage.getItem("nome") || "Aluno";
+// DADOS
+let nome = localStorage.getItem("nome") || "Aluno";
+let escola = localStorage.getItem("escola") || "";
 
-// ESCOLA
-document.getElementById("escola").innerText =
-"Instituição: " + (localStorage.getItem("escola") || "");
+// GERAR CÓDIGO ÚNICO
+let codigo = "PEPI-" + Math.floor(Math.random()*1000000);
 
 // DATA
-let hoje = new Date();
-document.getElementById("data").innerText =
-"Data: " + hoje.toLocaleDateString();
+let hoje = new Date().toLocaleDateString();
+
+// INSERIR
+document.getElementById("nome").innerText = nome;
+document.getElementById("escola").innerText = "Instituição: " + escola;
+document.getElementById("data").innerText = "Data: " + hoje;
+document.getElementById("codigo").innerText = "Código: " + codigo;
+
+// QR CODE (gera automático via API)
+let urlValidacao = "https://pepibrasilbr-educacaodigital.github.io/Pepiapp/?certificado=" + codigo;
+
+document.getElementById("qrcode").src =
+"https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" + encodeURIComponent(urlValidacao);
 
 </script>
 
