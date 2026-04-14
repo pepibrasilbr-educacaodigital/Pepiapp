@@ -2,83 +2,231 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Área do Aluno</title>
+<title>Plataforma • PEPI Brasil</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
-.topo{padding:20px 40px;display:flex;justify-content:space-between;}
-.nome{color:#f1c40f;font-weight:bold;}
-.container{padding:40px;}
-.grid{display:flex;gap:20px;flex-wrap:wrap;}
-.card{background:#142c54;padding:20px;border-radius:10px;width:250px;}
-.locked{opacity:0.4;}
-.concluido{border:2px solid #2ecc71;}
-button{width:100%;padding:10px;margin-top:10px;border:none;border-radius:6px;background:#f1c40f;font-weight:bold;}
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b1f3a;
+  color:white;
+}
+
+/* LOGIN */
+.login{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.login-box{
+  background:#142c54;
+  padding:30px;
+  border-radius:12px;
+  width:300px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:6px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:none;
+  border-radius:8px;
+  background:#f1c40f;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* TOPO */
+.topo{
+  padding:20px 40px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.nome{
+  color:#f1c40f;
+  font-weight:bold;
+}
+
+/* PROGRESSO */
+.barra{
+  background:#142c54;
+  margin:20px 40px;
+  padding:10px;
+  border-radius:10px;
+}
+
+.barra-interna{
+  height:20px;
+  background:#2ecc71;
+  border-radius:10px;
+  width:0%;
+  text-align:center;
+  color:black;
+  font-weight:bold;
+}
+
+/* MÓDULOS */
+.container{
+  padding:40px;
+}
+
+.grid{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.card{
+  background:#142c54;
+  padding:20px;
+  border-radius:10px;
+  width:250px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+}
+
+.locked{
+  opacity:0.3;
+}
+
+.concluido{
+  border:2px solid #2ecc71;
+}
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
+<div class="login" id="loginTela">
+  <div class="login-box">
+    <h2>Entrar</h2>
+    <input id="nomeInput" placeholder="Seu nome">
+    <button onclick="entrar()">Entrar</button>
+  </div>
+</div>
+
+<!-- PLATAFORMA -->
+<div id="plataforma" style="display:none">
+
 <div class="topo">
-  <div>Área do Aluno</div>
+  <div>PEPI Brasil</div>
   <div class="nome" id="nomeAluno"></div>
 </div>
 
+<!-- PROGRESSO -->
+<div class="barra">
+  <div class="barra-interna" id="barra"></div>
+</div>
+
+<!-- MÓDULOS -->
 <div class="container">
   <div class="grid" id="grid"></div>
 </div>
 
+</div>
+
 <script>
 
-document.getElementById("nomeAluno").innerText =
-localStorage.getItem("nome") || "";
+// LOGIN
+function entrar(){
+  let nome = document.getElementById("nomeInput").value;
+  if(!nome) return;
 
-let atual = parseInt(localStorage.getItem("moduloAtual"));
+  localStorage.setItem("nome", nome);
 
-if(!atual || atual < 1){
-  atual = 1;
+  document.getElementById("loginTela").style.display = "none";
+  document.getElementById("plataforma").style.display = "block";
+
+  iniciar();
 }
 
-if(atual > 6){
-  atual = 6;
+// AUTO LOGIN
+if(localStorage.getItem("nome")){
+  document.getElementById("loginTela").style.display = "none";
+  document.getElementById("plataforma").style.display = "block";
+  iniciar();
 }
 
-localStorage.setItem("moduloAtual", atual);
+// INICIAR SISTEMA
+function iniciar(){
 
-const modulos = [
-  "modulo1.html",
-  "modulo2.html",
-  "modulo3.html",
-  "modulo4.html",
-  "modulo5.html",
-  "modulo6.html"
-];
+  document.getElementById("nomeAluno").innerText =
+  localStorage.getItem("nome");
 
-let grid = document.getElementById("grid");
+  let atual = parseInt(localStorage.getItem("moduloAtual"));
 
-modulos.forEach((m, index) => {
+  if(!atual || atual < 1){
+    atual = 1;
+  }
 
-  let numero = index + 1;
-  let liberado = numero <= atual;
-  let concluido = numero < atual;
+  if(atual > 6){
+    atual = 6;
+  }
 
-  let div = document.createElement("div");
+  localStorage.setItem("moduloAtual", atual);
 
-  div.className = "card " +
-    (liberado ? "" : "locked") +
-    (concluido ? " concluido" : "");
+  // PROGRESSO %
+  let porcentagem = Math.round((atual-1)/6 * 100);
 
-  div.innerHTML = `
-    <h3>Módulo ${numero}</h3>
-    <button ${liberado ? "" : "disabled"}
-    onclick="window.location.href='${m}'">
-      ${liberado ? "Acessar" : "Bloqueado"}
-    </button>
-  `;
+  let barra = document.getElementById("barra");
+  barra.style.width = porcentagem + "%";
+  barra.innerText = porcentagem + "%";
 
-  grid.appendChild(div);
+  // MÓDULOS
+  const modulos = [
+    "modulo1.html",
+    "modulo2.html",
+    "modulo3.html",
+    "modulo4.html",
+    "modulo5.html",
+    "modulo6.html"
+  ];
 
-});
+  let grid = document.getElementById("grid");
+
+  grid.innerHTML = "";
+
+  modulos.forEach((m, index) => {
+
+    let numero = index + 1;
+
+    let liberado = numero <= atual;
+    let concluido = numero < atual;
+
+    let div = document.createElement("div");
+
+    div.className = "card " +
+      (liberado ? "" : "locked") +
+      (concluido ? " concluido" : "");
+
+    div.innerHTML = `
+      <h3>Módulo ${numero}</h3>
+      <button ${liberado ? "" : "disabled"}
+      onclick="window.location.href='${m}'">
+        ${liberado ? "Assistir" : "Bloqueado"}
+      </button>
+    `;
+
+    grid.appendChild(div);
+
+  });
+
+}
 
 </script>
 
