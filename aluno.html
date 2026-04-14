@@ -12,13 +12,33 @@ body{
   color:white;
 }
 
+/* LOADING */
+.loading{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:#0b1f3a;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.spinner{
+  border:5px solid #142c54;
+  border-top:5px solid #f1c40f;
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  animation:spin 1s linear infinite;
+}
+
 /* LOGIN */
 .login{
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
-  animation:fadeIn 1s;
 }
 
 .login-box{
@@ -26,7 +46,7 @@ body{
   padding:30px;
   border-radius:12px;
   width:300px;
-  animation:scaleUp 0.6s;
+  animation:fadeUp 0.6s;
 }
 
 input{
@@ -58,12 +78,10 @@ button:hover{
   padding:20px 40px;
   display:flex;
   justify-content:space-between;
-  animation:fadeIn 1s;
 }
 
 .nome{
   color:#f1c40f;
-  font-weight:bold;
 }
 
 /* PROGRESSO */
@@ -96,14 +114,12 @@ button:hover{
   flex-wrap:wrap;
 }
 
-/* CARD */
 .card{
   background:#142c54;
   padding:20px;
   border-radius:10px;
   width:250px;
   transition:0.3s;
-  animation:fadeUp 0.6s;
 }
 
 .card:hover{
@@ -119,39 +135,27 @@ button:hover{
 }
 
 /* ANIMAÇÕES */
-@keyframes fadeIn{
-  from{opacity:0;}
-  to{opacity:1;}
+@keyframes spin{
+  0%{transform:rotate(0);}
+  100%{transform:rotate(360deg);}
 }
 
 @keyframes fadeUp{
-  from{
-    opacity:0;
-    transform:translateY(20px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-@keyframes scaleUp{
-  from{
-    transform:scale(0.8);
-    opacity:0;
-  }
-  to{
-    transform:scale(1);
-    opacity:1;
-  }
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
 
 <body>
 
+<!-- LOADING -->
+<div class="loading" id="loading">
+  <div class="spinner"></div>
+</div>
+
 <!-- LOGIN -->
-<div class="login" id="loginTela">
+<div class="login" id="loginTela" style="display:none">
   <div class="login-box">
     <h2>Entrar</h2>
     <input id="nomeInput" placeholder="Seu nome">
@@ -179,24 +183,40 @@ button:hover{
 
 <script>
 
+// SOM
+function playClick(){
+  let audio = new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
+  audio.play();
+}
+
+// LOADING
+setTimeout(()=>{
+  document.getElementById("loading").style.display="none";
+
+  if(localStorage.getItem("nome")){
+    document.getElementById("plataforma").style.display="block";
+    iniciar();
+  }else{
+    document.getElementById("loginTela").style.display="flex";
+  }
+
+},1000);
+
+// LOGIN
 function entrar(){
   let nome = document.getElementById("nomeInput").value;
   if(!nome) return;
 
   localStorage.setItem("nome", nome);
+  playClick();
 
-  document.getElementById("loginTela").style.display = "none";
-  document.getElementById("plataforma").style.display = "block";
+  document.getElementById("loginTela").style.display="none";
+  document.getElementById("plataforma").style.display="block";
 
   iniciar();
 }
 
-if(localStorage.getItem("nome")){
-  document.getElementById("loginTela").style.display = "none";
-  document.getElementById("plataforma").style.display = "block";
-  iniciar();
-}
-
+// INICIAR
 function iniciar(){
 
   document.getElementById("nomeAluno").innerText =
@@ -246,7 +266,7 @@ function iniciar(){
     div.innerHTML = `
       <h3>Módulo ${numero}</h3>
       <button ${liberado ? "" : "disabled"}
-      onclick="window.location.href='${m}'">
+      onclick="playClick(); window.location.href='${m}'">
         ${liberado ? "Assistir" : "Bloqueado"}
       </button>
     `;
@@ -255,6 +275,22 @@ function iniciar(){
 
   });
 
+}
+
+// CONFETE 🎉
+function confete(){
+  for(let i=0;i<50;i++){
+    let el = document.createElement("div");
+    el.style.position="fixed";
+    el.style.width="8px";
+    el.style.height="8px";
+    el.style.background="gold";
+    el.style.top=Math.random()*100+"%";
+    el.style.left=Math.random()*100+"%";
+    document.body.appendChild(el);
+
+    setTimeout(()=>el.remove(),2000);
+  }
 }
 
 </script>
