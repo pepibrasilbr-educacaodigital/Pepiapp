@@ -1,60 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login - PEPI</title>
+  <title>Login Gestor</title>
 
   <style>
     body {
       font-family: Arial;
       background: #0b1f3a;
-      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
       text-align: center;
-      padding: 50px;
+      width: 300px;
     }
 
     input {
+      width: 90%;
       padding: 10px;
-      margin: 10px;
-      border-radius: 8px;
-      border: none;
-      width: 220px;
+      margin: 10px 0;
     }
 
-    .button {
+    button {
+      padding: 10px;
+      width: 100%;
       background: #f1c40f;
-      padding: 12px;
-      border-radius: 10px;
       border: none;
-      font-weight: bold;
       cursor: pointer;
+      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
 
-<h1>Acesso do Aluno</h1>
+<div class="box">
+  <h2>Login do Gestor</h2>
 
-<input type="text" id="nome" placeholder="Seu nome"><br>
-<input type="text" id="turma" placeholder="Sua turma"><br>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="senha" placeholder="Senha">
 
-<button class="button" onclick="entrar()">Entrar</button>
+  <button onclick="login()">Entrar</button>
 
-<p id="erro"></p>
+  <p id="erro" style="color:red;"></p>
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
-function entrar(){
-  let nome = document.getElementById("nome").value;
-  let turma = document.getElementById("turma").value;
+const firebaseConfig = {
+  apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
+  authDomain: "pepi-brasil.firebaseapp.com",
+  projectId: "pepi-brasil",
+  storageBucket: "pepi-brasil.appspot.com",
+  messagingSenderId: "937753921449",
+  appId: "1:937753921449:web:b10c09928e625a905526b8"
+};
 
-  if(nome !== "" && turma !== ""){
-    localStorage.setItem("nomeAluno", nome);
-    localStorage.setItem("turmaAluno", turma);
+// evita erro duplicado
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-    window.location.href = "aluno.html";
-  } else {
-    document.getElementById("erro").innerText = "Preencha todos os campos";
-  }
+function login(){
+
+  let email = document.getElementById("email").value;
+  let senha = document.getElementById("senha").value;
+
+  firebase.auth().signInWithEmailAndPassword(email, senha)
+  .then(() => {
+
+    // 🔥 AQUI É O MAIS IMPORTANTE
+    window.location.href = "gestor.html";
+
+  })
+  .catch(() => {
+    document.getElementById("erro").innerText = "Email ou senha inválidos";
+  });
 }
 </script>
 
