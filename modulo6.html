@@ -58,7 +58,7 @@
   <div id="finalMsg" class="final"></div>
 
   <button id="btnCertificado" class="button" onclick="gerarCertificado()" style="display:none;">
-    🎓 Gerar Certificado
+    🎓 Ver Certificado
   </button>
 
 </div>
@@ -107,28 +107,20 @@ function gerarCertificado(){
         body {
           margin: 0;
           font-family: 'Georgia', serif;
-          background: #f5f5f5;
-        }
-
-        .container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
+          background: white;
         }
 
         .certificado {
-          background: white;
-          padding: 50px;
+          padding: 60px;
           border: 8px solid #0b1f3a;
-          width: 800px;
+          width: 90%;
+          max-width: 900px;
+          margin: 40px auto;
           text-align: center;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
         .logo img {
           width: 120px;
-          margin-bottom: 10px;
         }
 
         h1 {
@@ -138,66 +130,69 @@ function gerarCertificado(){
 
         h2 {
           font-size: 32px;
-          margin: 20px 0;
           color: #facc15;
         }
 
         p {
           font-size: 18px;
-          margin: 10px 0;
-        }
-
-        .assinatura {
-          margin-top: 40px;
         }
 
         .linha {
           width: 200px;
-          border-top: 2px solid #000;
-          margin: 10px auto;
+          border-top: 2px solid black;
+          margin: 20px auto;
         }
 
-        .footer {
-          margin-top: 20px;
-          font-size: 14px;
-          opacity: 0.7;
+        .print {
+          margin-top: 30px;
         }
+
+        button {
+          padding: 10px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+
+        @media print {
+          button {
+            display: none;
+          }
+        }
+
       </style>
     </head>
 
     <body>
 
-      <div class="container">
-        <div class="certificado">
+      <div class="certificado">
 
-          <div class="logo">
-            <img src="logo.PNG">
-          </div>
-
-          <h1>CERTIFICADO</h1>
-
-          <p>Certificamos que</p>
-
-          <h2>${nome}</h2>
-
-          <p>da turma ${turma}</p>
-
-          <p>concluiu com êxito o programa</p>
-
-          <p><strong>PEPI Digital Shield</strong></p>
-
-          <p>Educação e Segurança Digital</p>
-
-          <div class="assinatura">
-            <div class="linha"></div>
-            <p>Coordenação PEPI Brasil</p>
-          </div>
-
-          <div class="footer">
-            Emitido em ${data}
-          </div>
-
+        <div class="logo">
+          <img src="logo.PNG">
         </div>
+
+        <h1>CERTIFICADO</h1>
+
+        <p>Certificamos que</p>
+
+        <h2>${nome}</h2>
+
+        <p>da turma ${turma}</p>
+
+        <p>concluiu com êxito o programa</p>
+
+        <p><strong>PEPI Digital Shield</strong></p>
+
+        <p>Educação e Segurança Digital</p>
+
+        <div class="linha"></div>
+        <p>Coordenação PEPI Brasil</p>
+
+        <p>Emitido em ${data}</p>
+
+        <div class="print">
+          <button onclick="window.print()">📄 Baixar / Imprimir PDF</button>
+        </div>
+
       </div>
 
     </body>
