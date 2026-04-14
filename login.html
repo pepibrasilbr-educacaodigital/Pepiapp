@@ -17,7 +17,7 @@
       margin: 10px;
       border-radius: 8px;
       border: none;
-      width: 200px;
+      width: 220px;
     }
 
     .button {
@@ -35,8 +35,8 @@
 
 <h1>Acesso do Aluno</h1>
 
-<input type="text" id="usuario" placeholder="Usuário"><br>
-<input type="password" id="senha" placeholder="Senha"><br>
+<input type="text" id="nome" placeholder="Seu nome"><br>
+<input type="text" id="turma" placeholder="Sua turma"><br>
 
 <button class="button" onclick="entrar()">Entrar</button>
 
@@ -44,13 +44,16 @@
 
 <script>
 function entrar(){
-  let user = document.getElementById("usuario").value;
-  let senha = document.getElementById("senha").value;
+  let nome = document.getElementById("nome").value;
+  let turma = document.getElementById("turma").value;
 
-  if(user === "aluno" && senha === "1234"){
+  if(nome !== "" && turma !== ""){
+    localStorage.setItem("nomeAluno", nome);
+    localStorage.setItem("turmaAluno", turma);
+
     window.location.href = "aluno.html";
   } else {
-    document.getElementById("erro").innerText = "Acesso inválido";
+    document.getElementById("erro").innerText = "Preencha todos os campos";
   }
 }
 </script>
