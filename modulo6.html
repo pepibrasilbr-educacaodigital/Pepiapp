@@ -6,16 +6,13 @@
 
 <style>
 body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
-.topo{padding:20px 40px;color:#f1c40f;font-weight:bold;}
 .container{padding:40px;max-width:800px;margin:auto;}
 .box{background:white;color:black;padding:25px;border-radius:12px;margin-bottom:20px;}
-button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;cursor:pointer;}
+button{width:100%;padding:12px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;}
 </style>
 </head>
 
 <body>
-
-<div class="topo">PEPI Brasil • Módulo 6</div>
 
 <div class="container">
 
@@ -25,7 +22,6 @@ button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;bac
 </div>
 
 <div class="box">
-<button onclick="window.open('modulo6.pdf')">📥 Baixar Apostila</button>
 <button onclick="finalizar()">🏆 Gerar Certificado</button>
 </div>
 
@@ -35,10 +31,9 @@ button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;bac
 
 function finalizar(){
 
-  // MARCA COMO FINALIZADO
-  localStorage.setItem("moduloAtual", 7);
+  // 🔥 NÃO libera tudo — trava no 6
+  localStorage.setItem("moduloAtual", 6);
 
-  // VAI PARA O CERTIFICADO
   window.location.href = "certificado.html";
 
 }
