@@ -12,10 +12,6 @@
       padding: 20px;
     }
 
-    h1 {
-      margin-bottom: 20px;
-    }
-
     .modulo {
       background: white;
       color: black;
@@ -26,6 +22,12 @@
       text-decoration: none;
       display: block;
       font-weight: bold;
+    }
+
+    .bloqueado {
+      background: gray;
+      pointer-events: none;
+      opacity: 0.6;
     }
 
     .concluido {
@@ -47,39 +49,22 @@
 <a id="m6" href="modulo6.html" class="modulo">Módulo 6</a>
 
 <script>
-function verificar(){
-  if(localStorage.getItem("modulo1") === "concluido"){
-    document.getElementById("m1").classList.add("concluido");
-    document.getElementById("m1").innerText = "Módulo 1 ✅";
-  }
+function atualizar(){
+  for(let i=1; i<=6; i++){
+    let modulo = document.getElementById("m"+i);
 
-  if(localStorage.getItem("modulo2") === "concluido"){
-    document.getElementById("m2").classList.add("concluido");
-    document.getElementById("m2").innerText = "Módulo 2 ✅";
-  }
+    if(localStorage.getItem("modulo"+i) === "concluido"){
+      modulo.classList.add("concluido");
+      modulo.innerText = "Módulo " + i + " ✅";
+    }
 
-  if(localStorage.getItem("modulo3") === "concluido"){
-    document.getElementById("m3").classList.add("concluido");
-    document.getElementById("m3").innerText = "Módulo 3 ✅";
-  }
-
-  if(localStorage.getItem("modulo4") === "concluido"){
-    document.getElementById("m4").classList.add("concluido");
-    document.getElementById("m4").innerText = "Módulo 4 ✅";
-  }
-
-  if(localStorage.getItem("modulo5") === "concluido"){
-    document.getElementById("m5").classList.add("concluido");
-    document.getElementById("m5").innerText = "Módulo 5 ✅";
-  }
-
-  if(localStorage.getItem("modulo6") === "concluido"){
-    document.getElementById("m6").classList.add("concluido");
-    document.getElementById("m6").innerText = "Módulo 6 ✅";
+    if(i > 1 && !localStorage.getItem("modulo"+(i-1))){
+      modulo.classList.add("bloqueado");
+    }
   }
 }
 
-verificar();
+atualizar();
 </script>
 
 </body>
