@@ -5,59 +5,15 @@
 <title>Área do Aluno</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#0b1f3a;
-  color:white;
-}
-
-.topo{
-  padding:20px 40px;
-  display:flex;
-  justify-content:space-between;
-}
-
-.nome{
-  color:#f1c40f;
-  font-weight:bold;
-}
-
-.container{
-  padding:40px;
-}
-
-.grid{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-}
-
-.card{
-  background:#142c54;
-  padding:20px;
-  border-radius:10px;
-  width:250px;
-}
-
-.locked{
-  opacity:0.4;
-}
-
-.concluido{
-  border:2px solid #2ecc71;
-}
-
-button{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  border:none;
-  border-radius:6px;
-  background:#f1c40f;
-  font-weight:bold;
-  cursor:pointer;
-}
+body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
+.topo{padding:20px 40px;display:flex;justify-content:space-between;}
+.nome{color:#f1c40f;font-weight:bold;}
+.container{padding:40px;}
+.grid{display:flex;gap:20px;flex-wrap:wrap;}
+.card{background:#142c54;padding:20px;border-radius:10px;width:250px;}
+.locked{opacity:0.4;}
+.concluido{border:2px solid #2ecc71;}
+button{width:100%;padding:10px;margin-top:10px;border:none;border-radius:6px;background:#f1c40f;font-weight:bold;}
 </style>
 </head>
 
@@ -74,14 +30,11 @@ button{
 
 <script>
 
-// MOSTRAR NOME
 document.getElementById("nomeAluno").innerText =
 localStorage.getItem("nome") || "";
 
-// PEGAR PROGRESSO
 let atual = parseInt(localStorage.getItem("moduloAtual"));
 
-// 🔥 CORREÇÃO DEFINITIVA
 if(!atual || atual < 1){
   atual = 1;
 }
@@ -90,10 +43,8 @@ if(atual > 6){
   atual = 6;
 }
 
-// SALVA CORRETO
 localStorage.setItem("moduloAtual", atual);
 
-// LISTA DE MÓDULOS
 const modulos = [
   "modulo1.html",
   "modulo2.html",
@@ -103,13 +54,11 @@ const modulos = [
   "modulo6.html"
 ];
 
-// GRID
 let grid = document.getElementById("grid");
 
 modulos.forEach((m, index) => {
 
   let numero = index + 1;
-
   let liberado = numero <= atual;
   let concluido = numero < atual;
 
@@ -121,7 +70,6 @@ modulos.forEach((m, index) => {
 
   div.innerHTML = `
     <h3>Módulo ${numero}</h3>
-
     <button ${liberado ? "" : "disabled"}
     onclick="window.location.href='${m}'">
       ${liberado ? "Acessar" : "Bloqueado"}
