@@ -8,8 +8,8 @@
       font-family: Arial;
       background: #0b1f3a;
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 20px;
     }
 
     .box {
@@ -28,8 +28,10 @@
       text-decoration: none;
       color: black;
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 10px;
       font-weight: bold;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -41,18 +43,20 @@
 <div class="box">
 
   <p>
-  O uso excessivo das redes sociais pode afetar a saúde mental, causando ansiedade, comparação e baixa autoestima.
+  O uso excessivo da internet pode impactar a saúde mental, causando ansiedade e comparação constante.
   </p>
 
   <p>
-  Nem tudo que aparece na internet é real. Muitas pessoas mostram apenas o lado positivo da vida.
+  Nem tudo que vemos nas redes sociais é real. Muitas pessoas mostram apenas o lado positivo da vida.
   </p>
 
   <p>
-  É importante equilibrar o tempo online com atividades fora das telas, como lazer, estudos e convivência familiar.
+  Equilibrar o tempo online com atividades fora das telas é essencial para o bem-estar.
   </p>
 
-  <p><b>Reflexão:</b> Como você se sente depois de passar muito tempo na internet?</p>
+  <button class="button" onclick="concluir()">Marcar como concluído</button>
+
+  <p id="status"></p>
 
   <a class="button" href="pepi.pdf" target="_blank">
     Ver conteúdo completo
@@ -63,6 +67,17 @@
 <br>
 
 <a href="aluno.html" class="button">⬅ Voltar</a>
+
+<script>
+function concluir(){
+  localStorage.setItem("modulo5", "concluido");
+  document.getElementById("status").innerText = "✅ Aula concluída!";
+}
+
+if(localStorage.getItem("modulo5") === "concluido"){
+  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+}
+</script>
 
 </body>
 </html>
