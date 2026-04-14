@@ -2,46 +2,144 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Módulo 6</title>
+<title>Certificado</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
-.topo{padding:20px 40px;color:#f1c40f;font-weight:bold;}
-.container{padding:40px;max-width:800px;margin:auto;}
-.box{background:white;color:black;padding:25px;border-radius:12px;margin-bottom:20px;}
-button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;cursor:pointer;}
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: #0b1f3a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* CERTIFICADO */
+.certificado {
+  width: 900px;
+  background: white;
+  padding: 50px;
+  border: 8px solid #0b1f3a;
+  text-align: center;
+  position: relative;
+}
+
+/* DETALHE DOURADO */
+.certificado::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid #f1c40f;
+}
+
+/* TITULO */
+h1 {
+  font-size: 36px;
+  color: #0b1f3a;
+  margin-bottom: 10px;
+}
+
+/* SUB */
+.sub {
+  font-size: 14px;
+  color: #555;
+}
+
+/* NOME */
+.nome {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 25px 0;
+  color: #000;
+}
+
+/* TEXTO */
+.texto {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+/* CURSO */
+.curso {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* INFO */
+.info {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+/* RODAPÉ */
+.footer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #555;
+}
+
+/* BOTÃO */
+button {
+  margin-top: 25px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #f1c40f;
+  font-weight: bold;
+  cursor: pointer;
+}
 </style>
 </head>
 
 <body>
 
-<div class="topo">PEPI Brasil • Módulo 6</div>
+<div class="certificado">
 
-<div class="container">
+  <h1>Certificado de Conclusão</h1>
+  <div class="sub">PEPI Brasil • Educação Digital</div>
 
-<div class="box">
-<h1>🎓 Conclusão</h1>
-<p>Parabéns! Você concluiu o curso.</p>
-</div>
+  <div class="texto">Certificamos que</div>
 
-<div class="box">
-<button onclick="window.open('modulo6.pdf')">📥 Baixar Apostila</button>
-<button onclick="finalizar()">🏆 Gerar Certificado</button>
-</div>
+  <div class="nome" id="nome"></div>
+
+  <div class="texto">concluiu com êxito o programa de</div>
+
+  <div class="curso">Educação Digital e Proteção Online</div>
+
+  <div class="info" id="escola"></div>
+  <div class="info" id="data"></div>
+
+  <div class="footer">
+    <div>PEPI Brasil</div>
+    <div>Educação Digital para Todos</div>
+  </div>
+
+  <button onclick="window.print()">🖨️ Baixar / Imprimir</button>
 
 </div>
 
 <script>
-function finalizar(){
 
-  let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
+// NOME
+document.getElementById("nome").innerText =
+localStorage.getItem("nome") || "Aluno";
 
-  if(atual === 6){
-    localStorage.setItem("moduloAtual", 7);
-    window.location.href = "certificado.html";
-  }
+// ESCOLA
+document.getElementById("escola").innerText =
+"Instituição: " + (localStorage.getItem("escola") || "");
 
-}
+// DATA
+let hoje = new Date();
+document.getElementById("data").innerText =
+"Data: " + hoje.toLocaleDateString();
+
 </script>
 
 </body>
