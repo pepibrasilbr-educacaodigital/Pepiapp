@@ -1,110 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Módulo 6 - Uso Inteligente</title>
-
-  <style>
-    body {
-      font-family: Arial;
-      background: #0b1f3a;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .box {
-      background: white;
-      color: black;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: auto;
-    }
-
-    .button {
-      background: #f1c40f;
-      padding: 12px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: black;
-      display: inline-block;
-      margin-top: 10px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
-
-    .final {
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #2ecc71;
-    }
-  </style>
-</head>
-
-<body>
-
-<h1>Módulo 6 - Uso Inteligente</h1>
-
-<div class="box">
-
-  <p>
-  A internet pode ser uma ferramenta poderosa para aprender, crescer e se desenvolver.
-  </p>
-
-  <p>
-  O uso inteligente envolve responsabilidade, equilíbrio e consciência.
-  </p>
-
-  <p>
-  Utilize a tecnologia para evoluir, estudar e construir um futuro melhor.
-  </p>
-
-  <button class="button" onclick="concluir()">Marcar como concluído</button>
-
-  <p id="status"></p>
-
-  <div id="finalMsg" class="final"></div>
-
-  <button id="btnCertificado" class="button" onclick="gerarCertificado()" style="display:none;">
-    🎓 Gerar Certificado
-  </button>
-
-  <a class="button" href="pepi.pdf" target="_blank">
-    Ver conteúdo completo
-  </a>
-
-</div>
-
-<br>
-
-<a href="aluno.html" class="button">⬅ Voltar</a>
-
 <script>
-function concluir(){
-  localStorage.setItem("modulo6", "concluido");
-  document.getElementById("status").innerText = "✅ Aula concluída!";
-  verificarFinal();
-}
-
-function verificarFinal(){
-  let completo = true;
-
-  for(let i=1; i<=6; i++){
-    if(!localStorage.getItem("modulo"+i)){
-      completo = false;
-    }
-  }
-
-  if(completo){
-    document.getElementById("finalMsg").innerText =
-      "🎉 Parabéns! Você concluiu todo o programa!";
-    
-    document.getElementById("btnCertificado").style.display = "inline-block";
-  }
-}
-
 function gerarCertificado(){
   let nome = localStorage.getItem("nomeAluno");
   let turma = localStorage.getItem("turmaAluno");
@@ -115,52 +9,87 @@ function gerarCertificado(){
     <html>
     <head>
       <title>Certificado</title>
+
       <style>
         body {
-          font-family: Arial;
-          text-align: center;
+          margin: 0;
+          font-family: 'Georgia', serif;
+          background: #f5f5f5;
+        }
+
+        .container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+
+        .certificado {
+          background: white;
           padding: 50px;
+          border: 8px solid #0b1f3a;
+          width: 800px;
+          text-align: center;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
         h1 {
+          font-size: 40px;
           color: #0b1f3a;
+          margin-bottom: 20px;
         }
 
-        .cert {
-          border: 3px solid #0b1f3a;
-          padding: 40px;
-          border-radius: 15px;
+        h2 {
+          font-size: 32px;
+          margin: 20px 0;
+          color: #facc15;
+        }
+
+        p {
+          font-size: 18px;
+          margin: 10px 0;
+        }
+
+        .destaque {
+          font-weight: bold;
+        }
+
+        .footer {
+          margin-top: 40px;
+          font-size: 14px;
+          opacity: 0.7;
         }
       </style>
     </head>
 
     <body>
-      <div class="cert">
-        <h1>🎓 CERTIFICADO</h1>
 
-        <p>Certificamos que</p>
+      <div class="container">
+        <div class="certificado">
 
-        <h2>${nome}</h2>
+          <h1>🎓 CERTIFICADO</h1>
 
-        <p>da turma ${turma}</p>
+          <p>Certificamos que</p>
 
-        <p>concluiu com sucesso o programa</p>
+          <h2>${nome}</h2>
 
-        <h3>PEPI Digital Shield</h3>
+          <p>da turma <span class="destaque">${turma}</span></p>
 
-        <p>Educação e Segurança Digital</p>
+          <p>concluiu com êxito o programa</p>
+
+          <p class="destaque">PEPI Digital Shield</p>
+
+          <p>Educação e Segurança Digital</p>
+
+          <div class="footer">
+            PEPI Brasil • Formação em Consciência Digital
+          </div>
+
+        </div>
       </div>
+
     </body>
     </html>
   `);
 }
-
-if(localStorage.getItem("modulo6") === "concluido"){
-  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
-}
-
-verificarFinal();
 </script>
-
-</body>
-</html>
