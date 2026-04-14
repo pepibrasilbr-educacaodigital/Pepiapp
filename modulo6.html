@@ -1,9 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Área do Aluno</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #0b1f3a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      width: 300px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      background: #f1c40f;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Área do Aluno</h2>
+
+  <input type="text" id="nome" placeholder="Seu nome">
+  <input type="text" id="turma" placeholder="Sua turma">
+
+  <button onclick="salvarCertificado()">Gerar Certificado</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
+  authDomain: "pepi-brasil.firebaseapp.com",
+  projectId: "pepi-brasil"
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const db = firebase.firestore();
+
 function salvarCertificado(){
 
   const user = firebase.auth().currentUser;
 
   if(!user){
-    alert("Você precisa estar logado");
+    alert("Você precisa estar logado como gestor para gerar certificados.");
     return;
   }
 
@@ -12,7 +81,6 @@ function salvarCertificado(){
   let escola = localStorage.getItem("escola");
 
   let codigo = "PEPI-" + Math.floor(Math.random() * 100000);
-
   let data = new Date().toLocaleDateString();
 
   db.collection("certificados").doc(codigo).set({
@@ -20,16 +88,17 @@ function salvarCertificado(){
     turma: turma,
     escola: escola,
     data: data,
-
-    // 🔥 ESSENCIAL
     gestorId: user.uid
   })
   .then(() => {
     alert("Certificado gerado com sucesso!");
   })
-  .catch(error => {
-    console.error(error);
+  .catch(() => {
     alert("Erro ao salvar");
   });
 
 }
+</script>
+
+</body>
+</html>
