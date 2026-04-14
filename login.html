@@ -45,13 +45,13 @@
 
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="senha" placeholder="Senha">
+  <input type="text" id="escola" placeholder="Nome da Escola">
 
   <button onclick="login()">Entrar</button>
 
   <p id="erro" style="color:red;"></p>
 </div>
 
-<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
@@ -59,13 +59,9 @@
 const firebaseConfig = {
   apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
   authDomain: "pepi-brasil.firebaseapp.com",
-  projectId: "pepi-brasil",
-  storageBucket: "pepi-brasil.appspot.com",
-  messagingSenderId: "937753921449",
-  appId: "1:937753921449:web:b10c09928e625a905526b8"
+  projectId: "pepi-brasil"
 };
 
-// evita erro duplicado
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -74,16 +70,19 @@ function login(){
 
   let email = document.getElementById("email").value;
   let senha = document.getElementById("senha").value;
+  let escola = document.getElementById("escola").value;
 
   firebase.auth().signInWithEmailAndPassword(email, senha)
   .then(() => {
 
-    // 🔥 AQUI É O MAIS IMPORTANTE
+    // 🔥 SALVA A ESCOLA
+    localStorage.setItem("escola", escola);
+
     window.location.href = "gestor.html";
 
   })
   .catch(() => {
-    document.getElementById("erro").innerText = "Email ou senha inválidos";
+    document.getElementById("erro").innerText = "Login inválido";
   });
 }
 </script>
