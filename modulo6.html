@@ -109,19 +109,16 @@ function gerarCertificado(){
         body {
           margin: 0;
           font-family: 'Georgia', serif;
-          background: linear-gradient(135deg, #0b1f3a, #07142a);
+          background: #f5f5f5;
         }
 
         .certificado {
           width: 1000px;
           height: 600px;
-          margin: 20px auto;
+          margin: 30px auto;
           padding: 40px;
           background: white;
-          border-radius: 10px;
-          border: 10px solid #0b1f3a;
-          box-shadow: 0 0 40px rgba(0,0,0,0.3);
-          position: relative;
+          border: 8px solid #0b1f3a;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -139,7 +136,6 @@ function gerarCertificado(){
           font-size: 36px;
           color: #0b1f3a;
           margin: 10px 0;
-          letter-spacing: 2px;
         }
 
         .conteudo {
@@ -153,7 +149,6 @@ function gerarCertificado(){
 
         p {
           font-size: 18px;
-          margin: 5px 0;
         }
 
         .rodape {
@@ -176,37 +171,9 @@ function gerarCertificado(){
           width: 100px;
         }
 
-        .selo {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          border: 3px solid #facc15;
-          padding: 8px 15px;
-          border-radius: 50%;
-          color: #facc15;
-          transform: rotate(15deg);
-          font-weight: bold;
-        }
-
-        .marca {
-          position: absolute;
-          bottom: 20px;
-          left: 20px;
-          opacity: 0.08;
-          font-size: 60px;
-          font-weight: bold;
-          color: #0b1f3a;
-        }
-
         .print {
           text-align: center;
-          margin-top: 10px;
-        }
-
-        button {
-          padding: 10px;
-          font-size: 16px;
-          cursor: pointer;
+          margin-top: 15px;
         }
 
         @media print {
@@ -221,9 +188,6 @@ function gerarCertificado(){
     <body>
 
       <div class="certificado">
-
-        <div class="selo">VALIDADO</div>
-        <div class="marca">PEPI</div>
 
         <div class="topo">
           <div class="logo">
@@ -251,7 +215,6 @@ function gerarCertificado(){
 
           <div class="qr">
             <img src="${qr}">
-            <p>Validar</p>
           </div>
 
         </div>
@@ -266,12 +229,6 @@ function gerarCertificado(){
     </html>
   `);
 }
-
-if(localStorage.getItem("modulo6") === "concluido"){
-  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
-}
-
-verificarFinal();
 </script>
 
 </body>
