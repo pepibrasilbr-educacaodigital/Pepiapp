@@ -1,56 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Validação de Certificado</title>
-
-  <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      padding: 50px;
-      background: #0b1f3a;
-      color: white;
-    }
-
-    .box {
-      background: white;
-      color: black;
-      padding: 30px;
-      border-radius: 10px;
-      max-width: 400px;
-      margin: auto;
-    }
-
-    .valido {
-      color: green;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .codigo {
-      margin-top: 10px;
-      font-size: 18px;
-    }
-  </style>
+  <title>Validação</title>
 </head>
 
-<body>
+<body style="font-family:Arial;text-align:center;padding:50px;">
 
-<div class="box">
-  <h2>Validação de Certificado</h2>
+<h2>Validação de Certificado</h2>
 
-  <p id="codigo" class="codigo"></p>
+<p id="status">Verificando...</p>
 
-  <p class="valido">✅ Certificado válido</p>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  <p>Emitido pela PEPI Brasil</p>
-</div>
+const firebaseConfig = {
+  apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
+  authDomain: "pepi-brasil.firebaseapp.com",
+  projectId: "pepi-brasil",
+  storageBucket: "pepi-brasil.appspot.com",
+  messagingSenderId: "937753921449",
+  appId: "1:937753921449:web:b10c09928e625a905526b8"
+};
 
-<script>
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 let params = new URLSearchParams(window.location.search);
 let codigo = params.get("codigo");
 
-document.getElementById("codigo").innerText = "Código: " + codigo;
+let ref = doc(db, "certificados", codigo);
+let snap = await getDoc(ref);
+
+if(snap.exists()){
+  document.getElementById("status").innerHTML = "✅ Certificado válido";
+}else{
+  document.getElementById("status").innerHTML = "❌ Certificado inválido";
+}
 </script>
 
 </body>
