@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Módulo 6</title>
+<title>Módulo 6 • PEPI Brasil</title>
 
 <style>
 body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
 .container{padding:40px;max-width:800px;margin:auto;}
 .box{background:white;color:black;padding:25px;border-radius:12px;margin-bottom:20px;}
-button{width:100%;padding:12px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;}
+button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;}
 </style>
 </head>
 
@@ -21,6 +21,14 @@ button{width:100%;padding:12px;border:none;border-radius:8px;background:#f1c40f;
 <p>Parabéns! Você concluiu o curso.</p>
 </div>
 
+<!-- 📥 PDF -->
+<div class="box">
+<button onclick="window.open('modulo6.pdf')">
+📥 Baixar Apostila do Módulo
+</button>
+</div>
+
+<!-- 🏆 CERTIFICADO -->
 <div class="box">
 <button onclick="finalizar()">🏆 Gerar Certificado</button>
 </div>
@@ -31,7 +39,6 @@ button{width:100%;padding:12px;border:none;border-radius:8px;background:#f1c40f;
 
 function finalizar(){
 
-  // mantém no 6 (não libera tudo)
   localStorage.setItem("moduloAtual", 6);
 
   window.location.href = "certificado.html";
