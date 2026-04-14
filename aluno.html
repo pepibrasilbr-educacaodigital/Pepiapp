@@ -18,6 +18,7 @@ body{
   justify-content:center;
   align-items:center;
   height:100vh;
+  animation:fadeIn 1s;
 }
 
 .login-box{
@@ -25,6 +26,7 @@ body{
   padding:30px;
   border-radius:12px;
   width:300px;
+  animation:scaleUp 0.6s;
 }
 
 input{
@@ -44,6 +46,11 @@ button{
   background:#f1c40f;
   font-weight:bold;
   cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
 }
 
 /* TOPO */
@@ -51,6 +58,7 @@ button{
   padding:20px 40px;
   display:flex;
   justify-content:space-between;
+  animation:fadeIn 1s;
 }
 
 .nome{
@@ -74,9 +82,10 @@ button{
   text-align:center;
   color:black;
   font-weight:bold;
+  transition:1s;
 }
 
-/* MÓDULOS */
+/* GRID */
 .container{
   padding:40px;
 }
@@ -87,16 +96,18 @@ button{
   flex-wrap:wrap;
 }
 
+/* CARD */
 .card{
   background:#142c54;
   padding:20px;
   border-radius:10px;
   width:250px;
   transition:0.3s;
+  animation:fadeUp 0.6s;
 }
 
 .card:hover{
-  transform:scale(1.05);
+  transform:scale(1.08);
 }
 
 .locked{
@@ -105,6 +116,34 @@ button{
 
 .concluido{
   border:2px solid #2ecc71;
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes scaleUp{
+  from{
+    transform:scale(0.8);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
 }
 </style>
 </head>
@@ -128,12 +167,10 @@ button{
   <div class="nome" id="nomeAluno"></div>
 </div>
 
-<!-- PROGRESSO -->
 <div class="barra">
   <div class="barra-interna" id="barra"></div>
 </div>
 
-<!-- MÓDULOS -->
 <div class="container">
   <div class="grid" id="grid"></div>
 </div>
@@ -142,7 +179,6 @@ button{
 
 <script>
 
-// LOGIN
 function entrar(){
   let nome = document.getElementById("nomeInput").value;
   if(!nome) return;
@@ -155,39 +191,33 @@ function entrar(){
   iniciar();
 }
 
-// AUTO LOGIN
 if(localStorage.getItem("nome")){
   document.getElementById("loginTela").style.display = "none";
   document.getElementById("plataforma").style.display = "block";
   iniciar();
 }
 
-// INICIAR SISTEMA
 function iniciar(){
 
   document.getElementById("nomeAluno").innerText =
   localStorage.getItem("nome");
 
-  let atual = parseInt(localStorage.getItem("moduloAtual"));
+  let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
 
-  if(!atual || atual < 1){
-    atual = 1;
-  }
-
-  if(atual > 6){
-    atual = 6;
-  }
+  if(atual < 1) atual = 1;
+  if(atual > 6) atual = 6;
 
   localStorage.setItem("moduloAtual", atual);
 
-  // PROGRESSO %
   let porcentagem = Math.round((atual-1)/6 * 100);
 
   let barra = document.getElementById("barra");
-  barra.style.width = porcentagem + "%";
-  barra.innerText = porcentagem + "%";
 
-  // MÓDULOS
+  setTimeout(()=>{
+    barra.style.width = porcentagem + "%";
+    barra.innerText = porcentagem + "%";
+  },300);
+
   const modulos = [
     "modulo1.html",
     "modulo2.html",
@@ -204,7 +234,6 @@ function iniciar(){
   modulos.forEach((m, index) => {
 
     let numero = index + 1;
-
     let liberado = numero <= atual;
     let concluido = numero < atual;
 
