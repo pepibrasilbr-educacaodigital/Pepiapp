@@ -6,33 +6,62 @@
   <style>
     body {
       font-family: Arial;
-      background: #0b1f3a;
+      background: linear-gradient(180deg, #0b1f3a, #07142a);
       color: white;
       text-align: center;
       padding: 20px;
     }
 
-    .modulo {
-      background: white;
-      color: black;
-      padding: 15px;
-      margin: 10px auto;
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .progress-container {
+      background: #1c3b6b;
       border-radius: 10px;
-      width: 300px;
-      text-decoration: none;
+      overflow: hidden;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .progress-bar {
+      height: 20px;
+      background: #2ecc71;
+      width: 0%;
+      text-align: center;
+      color: black;
+      font-weight: bold;
+    }
+
+    .card {
+      background: #0f2a52;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 10px auto;
+      max-width: 400px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .button {
       display: block;
+      margin-top: 10px;
+      padding: 12px;
+      background: #facc15;
+      color: black;
+      border-radius: 10px;
+      text-decoration: none;
       font-weight: bold;
     }
 
     .bloqueado {
-      background: gray;
+      opacity: 0.5;
       pointer-events: none;
-      opacity: 0.6;
     }
 
     .concluido {
-      background: #2ecc71;
-      color: white;
+      background: #2ecc71 !important;
+      color: white !important;
     }
   </style>
 </head>
@@ -41,27 +70,66 @@
 
 <h1>Área do Aluno</h1>
 
-<a id="m1" href="modulo1.html" class="modulo">Módulo 1</a>
-<a id="m2" href="modulo2.html" class="modulo">Módulo 2</a>
-<a id="m3" href="modulo3.html" class="modulo">Módulo 3</a>
-<a id="m4" href="modulo4.html" class="modulo">Módulo 4</a>
-<a id="m5" href="modulo5.html" class="modulo">Módulo 5</a>
-<a id="m6" href="modulo6.html" class="modulo">Módulo 6</a>
+<!-- BARRA DE PROGRESSO -->
+<div class="progress-container">
+  <div id="barra" class="progress-bar">0%</div>
+</div>
+
+<!-- MÓDULOS -->
+
+<div id="m1" class="card">
+  Módulo 1
+  <a href="modulo1.html" class="button">Acessar</a>
+</div>
+
+<div id="m2" class="card">
+  Módulo 2
+  <a href="modulo2.html" class="button">Acessar</a>
+</div>
+
+<div id="m3" class="card">
+  Módulo 3
+  <a href="modulo3.html" class="button">Acessar</a>
+</div>
+
+<div id="m4" class="card">
+  Módulo 4
+  <a href="modulo4.html" class="button">Acessar</a>
+</div>
+
+<div id="m5" class="card">
+  Módulo 5
+  <a href="modulo5.html" class="button">Acessar</a>
+</div>
+
+<div id="m6" class="card">
+  Módulo 6
+  <a href="modulo6.html" class="button">Acessar</a>
+</div>
 
 <script>
 function atualizar(){
+  let total = 6;
+  let feitos = 0;
+
   for(let i=1; i<=6; i++){
     let modulo = document.getElementById("m"+i);
 
-    if(localStorage.getItem("modulo"+i) === "concluido"){
+    if(localStorage.getItem("modulo"+i)){
       modulo.classList.add("concluido");
-      modulo.innerText = "Módulo " + i + " ✅";
+      feitos++;
     }
 
     if(i > 1 && !localStorage.getItem("modulo"+(i-1))){
       modulo.classList.add("bloqueado");
     }
   }
+
+  let porcentagem = Math.round((feitos/total)*100);
+  let barra = document.getElementById("barra");
+
+  barra.style.width = porcentagem + "%";
+  barra.innerText = porcentagem + "%";
 }
 
 atualizar();
