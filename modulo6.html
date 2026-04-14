@@ -1,103 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Iniciar Curso | PEPI Brasil</title>
+<title>Módulo 6</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: linear-gradient(135deg, #0b1f3a, #142c54);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.container {
-  display: flex;
-  width: 80%;
-  max-width: 900px;
-  background: #0f2a4d;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.left {
-  flex: 1;
-  padding: 40px;
-}
-
-.left h1 {
-  font-size: 32px;
-}
-
-.right {
-  flex: 1;
-  background: white;
-  color: black;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-input {
-  margin-bottom: 15px;
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-button {
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  background: #f1c40f;
-  font-weight: bold;
-  cursor: pointer;
-}
+body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
+.topo{padding:20px 40px;color:#f1c40f;font-weight:bold;}
+.container{padding:40px;max-width:800px;margin:auto;}
+.box{background:white;color:black;padding:25px;border-radius:12px;margin-bottom:20px;}
+button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;cursor:pointer;}
 </style>
 </head>
 
 <body>
 
+<div class="topo">PEPI Brasil • Módulo 6</div>
+
 <div class="container">
 
-  <div class="left">
-    <h1>Bem-vindo ao Curso</h1>
-    <p>Aprenda a usar a internet com segurança, consciência e responsabilidade.</p>
-  </div>
+<div class="box">
+<h1>🎓 Conclusão</h1>
+<p>Parabéns! Você concluiu o curso.</p>
+</div>
 
-  <div class="right">
-    <h2>Começar</h2>
-
-    <input type="text" id="nome" placeholder="Seu nome">
-    <input type="text" id="turma" placeholder="Sua turma">
-    <input type="text" id="escola" placeholder="Nome da escola">
-
-    <button onclick="entrar()">Começar Curso</button>
-  </div>
+<div class="box">
+<button onclick="window.open('modulo6.pdf')">📥 Baixar Apostila</button>
+<button onclick="finalizar()">🏆 Gerar Certificado</button>
+</div>
 
 </div>
 
 <script>
 
-function entrar(){
+function finalizar(){
 
-  // 🔥 ISSO RESOLVE SEU PROBLEMA
-  localStorage.setItem("moduloAtual", 1);
+  // MARCA COMO FINALIZADO
+  localStorage.setItem("moduloAtual", 7);
 
-  // SALVA DADOS
-  localStorage.setItem("nome", document.getElementById("nome").value);
-  localStorage.setItem("turma", document.getElementById("turma").value);
-  localStorage.setItem("escola", document.getElementById("escola").value);
+  // VAI PARA O CERTIFICADO
+  window.location.href = "certificado.html";
 
-  // REDIRECIONA
-  window.location.href = "aluno.html";
 }
 
 </script>
