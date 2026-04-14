@@ -50,15 +50,15 @@
 <div class="box">
 
   <p>
-  A internet pode ser usada para aprender, crescer e construir oportunidades.
+  A internet pode ser uma ferramenta poderosa para aprender, crescer e se desenvolver.
   </p>
 
   <p>
-  O uso inteligente significa saber quando usar, como usar e com responsabilidade.
+  O uso inteligente envolve responsabilidade, equilíbrio e consciência.
   </p>
 
   <p>
-  Use o digital a seu favor: para estudar, desenvolver habilidades e evoluir.
+  Utilize a tecnologia para evoluir, estudar e construir um futuro melhor.
   </p>
 
   <button class="button" onclick="concluir()">Marcar como concluído</button>
@@ -66,6 +66,10 @@
   <p id="status"></p>
 
   <div id="finalMsg" class="final"></div>
+
+  <button id="btnCertificado" class="button" onclick="gerarCertificado()" style="display:none;">
+    🎓 Gerar Certificado
+  </button>
 
   <a class="button" href="pepi.pdf" target="_blank">
     Ver conteúdo completo
@@ -94,8 +98,61 @@ function verificarFinal(){
   }
 
   if(completo){
-    document.getElementById("finalMsg").innerText = "🎉 Parabéns! Você concluiu todo o programa!";
+    document.getElementById("finalMsg").innerText =
+      "🎉 Parabéns! Você concluiu todo o programa!";
+    
+    document.getElementById("btnCertificado").style.display = "inline-block";
   }
+}
+
+function gerarCertificado(){
+  let nome = localStorage.getItem("nomeAluno");
+  let turma = localStorage.getItem("turmaAluno");
+
+  let novaJanela = window.open("", "_blank");
+
+  novaJanela.document.write(`
+    <html>
+    <head>
+      <title>Certificado</title>
+      <style>
+        body {
+          font-family: Arial;
+          text-align: center;
+          padding: 50px;
+        }
+
+        h1 {
+          color: #0b1f3a;
+        }
+
+        .cert {
+          border: 3px solid #0b1f3a;
+          padding: 40px;
+          border-radius: 15px;
+        }
+      </style>
+    </head>
+
+    <body>
+      <div class="cert">
+        <h1>🎓 CERTIFICADO</h1>
+
+        <p>Certificamos que</p>
+
+        <h2>${nome}</h2>
+
+        <p>da turma ${turma}</p>
+
+        <p>concluiu com sucesso o programa</p>
+
+        <h3>PEPI Digital Shield</h3>
+
+        <p>Educação e Segurança Digital</p>
+      </div>
+    </body>
+    </html>
+  `);
 }
 
 if(localStorage.getItem("modulo6") === "concluido"){
