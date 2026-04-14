@@ -12,13 +12,14 @@
     }
 
     h1 {
-      text-align: center;
+      margin: 0;
     }
 
     .topo {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 20px;
     }
 
     .btn-sair {
@@ -61,7 +62,7 @@
   <button class="btn-sair" onclick="logout()">Sair</button>
 </div>
 
-<div id="lista"></div>
+<div id="lista">Carregando...</div>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -69,69 +70,78 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
-  authDomain: "pepi-brasil.firebaseapp.com",
-  projectId: "pepi-brasil",
-  storageBucket: "pepi-brasil.appspot.com",
-  messagingSenderId: "937753921449",
-  appId: "1:937753921449:web:b10c09928e625a905526b8"
-};
+document.addEventListener("DOMContentLoaded", function(){
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+  const firebaseConfig = {
+    apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
+    authDomain: "pepi-brasil.firebaseapp.com",
+    projectId: "pepi-brasil",
+    storageBucket: "pepi-brasil.appspot.com",
+    messagingSenderId: "937753921449",
+    appId: "1:937753921449:web:b10c09928e625a905526b8"
+  };
 
+  // 🔥 EVITA ERRO DE DUPLICAÇÃO
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
 
-// 🔐 PROTEÇÃO DE LOGIN
-firebase.auth().onAuthStateChanged(function(user) {
+  const db = firebase.firestore();
 
-  if (!user) {
-    window.location.href = "login.html";
-  } else {
-    carregarCertificados();
+  // 🔐 PROTEÇÃO DE LOGIN
+  firebase.auth().onAuthStateChanged(function(user) {
+
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      carregarCertificados();
+    }
+
+  });
+
+  // 🚪 LOGOUT
+  window.logout = function(){
+    firebase.auth().signOut().then(() => {
+      window.location.href = "login.html";
+    });
+  }
+
+  // 📊 CARREGAR CERTIFICADOS
+  function carregarCertificados(){
+
+    db.collection("certificados").get().then(snapshot => {
+
+      let html = "";
+
+      if(snapshot.empty){
+        html = "<p style='color:white;'>Nenhum certificado ainda.</p>";
+      }
+
+      snapshot.forEach(doc => {
+
+        let dados = doc.data();
+
+        html += `
+          <div class="card">
+            <p><strong>Nome:</strong> ${dados.nome}</p>
+            <p><strong>Turma:</strong> ${dados.turma}</p>
+            <p><strong>Data:</strong> ${dados.data}</p>
+            <p class="codigo">Código: ${doc.id}</p>
+
+            <a href="validar.html?codigo=${doc.id}">
+              <button class="btn">🔎 Validar</button>
+            </a>
+          </div>
+        `;
+      });
+
+      document.getElementById("lista").innerHTML = html;
+
+    });
+
   }
 
 });
-
-
-// 🚪 LOGOUT
-function logout(){
-  firebase.auth().signOut().then(() => {
-    window.location.href = "login.html";
-  });
-}
-
-
-// 📊 CARREGAR CERTIFICADOS
-function carregarCertificados(){
-
-  db.collection("certificados").get().then(snapshot => {
-
-    let html = "";
-
-    snapshot.forEach(doc => {
-
-      let dados = doc.data();
-
-      html += `
-        <div class="card">
-          <p><strong>Nome:</strong> ${dados.nome}</p>
-          <p><strong>Turma:</strong> ${dados.turma}</p>
-          <p><strong>Data:</strong> ${dados.data}</p>
-          <p class="codigo">Código: ${doc.id}</p>
-
-          <a href="validar.html?codigo=${doc.id}">
-            <button class="btn">🔎 Validar</button>
-          </a>
-        </div>
-      `;
-    });
-
-    document.getElementById("lista").innerHTML = html;
-
-  });
-
-}
 </script>
 
 </body>
