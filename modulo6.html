@@ -96,6 +96,8 @@ function gerarCertificado(){
   let turma = localStorage.getItem("turmaAluno");
   let data = new Date().toLocaleDateString("pt-BR");
 
+  let qr = "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://pepibrasilbr-educacaodigital.github.io/Pepiapp/";
+
   let novaJanela = window.open("", "_blank");
 
   novaJanela.document.write(`
@@ -143,6 +145,14 @@ function gerarCertificado(){
           margin: 20px auto;
         }
 
+        .qr {
+          margin-top: 20px;
+        }
+
+        .qr img {
+          width: 120px;
+        }
+
         .print {
           margin-top: 30px;
         }
@@ -188,6 +198,11 @@ function gerarCertificado(){
         <p>Coordenação PEPI Brasil</p>
 
         <p>Emitido em ${data}</p>
+
+        <div class="qr">
+          <img src="${qr}">
+          <p>Validar certificado</p>
+        </div>
 
         <div class="print">
           <button onclick="window.print()">📄 Baixar / Imprimir PDF</button>
