@@ -8,8 +8,8 @@
       font-family: Arial;
       background: #0b1f3a;
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 20px;
     }
 
     .box {
@@ -28,8 +28,17 @@
       text-decoration: none;
       color: black;
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 10px;
       font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .final {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #2ecc71;
     }
   </style>
 </head>
@@ -41,18 +50,22 @@
 <div class="box">
 
   <p>
-  A internet pode ser uma ferramenta poderosa para aprender, se comunicar e crescer.
+  A internet pode ser usada para aprender, crescer e construir oportunidades.
   </p>
 
   <p>
-  O uso inteligente significa saber quando, como e por que usar a tecnologia.
+  O uso inteligente significa saber quando usar, como usar e com responsabilidade.
   </p>
 
   <p>
-  Use o digital a seu favor: para estudar, desenvolver habilidades e construir um futuro melhor.
+  Use o digital a seu favor: para estudar, desenvolver habilidades e evoluir.
   </p>
 
-  <p><b>Reflexão:</b> Como você pode usar a internet de forma mais positiva no seu dia a dia?</p>
+  <button class="button" onclick="concluir()">Marcar como concluído</button>
+
+  <p id="status"></p>
+
+  <div id="finalMsg" class="final"></div>
 
   <a class="button" href="pepi.pdf" target="_blank">
     Ver conteúdo completo
@@ -63,6 +76,34 @@
 <br>
 
 <a href="aluno.html" class="button">⬅ Voltar</a>
+
+<script>
+function concluir(){
+  localStorage.setItem("modulo6", "concluido");
+  document.getElementById("status").innerText = "✅ Aula concluída!";
+  verificarFinal();
+}
+
+function verificarFinal(){
+  let completo = true;
+
+  for(let i=1; i<=6; i++){
+    if(!localStorage.getItem("modulo"+i)){
+      completo = false;
+    }
+  }
+
+  if(completo){
+    document.getElementById("finalMsg").innerText = "🎉 Parabéns! Você concluiu todo o programa!";
+  }
+}
+
+if(localStorage.getItem("modulo6") === "concluido"){
+  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+}
+
+verificarFinal();
+</script>
 
 </body>
 </html>
