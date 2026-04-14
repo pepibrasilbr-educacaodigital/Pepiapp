@@ -6,30 +6,31 @@
   <style>
     body {
       font-family: Arial;
-      background-color: #0b1f3a;
+      background: #0b1f3a;
       color: white;
       text-align: center;
       padding: 20px;
     }
 
-    .card {
-      background: white;
-      color: black;
-      padding: 20px;
-      margin: 15px auto;
-      border-radius: 12px;
-      max-width: 400px;
+    h1 {
+      margin-bottom: 20px;
     }
 
-    .button {
-      background: #f1c40f;
-      padding: 12px;
-      border-radius: 10px;
-      text-decoration: none;
+    .modulo {
+      background: white;
       color: black;
-      display: inline-block;
-      margin-top: 10px;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 10px;
+      width: 300px;
+      text-decoration: none;
+      display: block;
       font-weight: bold;
+    }
+
+    .concluido {
+      background: #2ecc71;
+      color: white;
     }
   </style>
 </head>
@@ -38,39 +39,48 @@
 
 <h1>Área do Aluno</h1>
 
-<div class="card">
-  <h3>Módulo 1 - Identidade Digital</h3>
-  <a class="button" href="modulo1.html">Acessar Aula</a>
-</div>
+<a id="m1" href="modulo1.html" class="modulo">Módulo 1</a>
+<a id="m2" href="modulo2.html" class="modulo">Módulo 2</a>
+<a id="m3" href="modulo3.html" class="modulo">Módulo 3</a>
+<a id="m4" href="modulo4.html" class="modulo">Módulo 4</a>
+<a id="m5" href="modulo5.html" class="modulo">Módulo 5</a>
+<a id="m6" href="modulo6.html" class="modulo">Módulo 6</a>
 
-<div class="card">
-  <h3>Módulo 2 - Privacidade</h3>
-  <a class="button" href="modulo2.html">Acessar Aula</a>
-</div>
+<script>
+function verificar(){
+  if(localStorage.getItem("modulo1") === "concluido"){
+    document.getElementById("m1").classList.add("concluido");
+    document.getElementById("m1").innerText = "Módulo 1 ✅";
+  }
 
-<div class="card">
-  <h3>Módulo 3 - Violência Digital</h3>
-  <a class="button" href="modulo3.html">Acessar Aula</a>
-</div>
+  if(localStorage.getItem("modulo2") === "concluido"){
+    document.getElementById("m2").classList.add("concluido");
+    document.getElementById("m2").innerText = "Módulo 2 ✅";
+  }
 
-<div class="card">
-  <h3>Módulo 4 - Riscos Graves</h3>
-  <a class="button" href="modulo4.html">Acessar Aula</a>
-</div>
+  if(localStorage.getItem("modulo3") === "concluido"){
+    document.getElementById("m3").classList.add("concluido");
+    document.getElementById("m3").innerText = "Módulo 3 ✅";
+  }
 
-<div class="card">
-  <h3>Módulo 5 - Saúde Mental</h3>
-  <a class="button" href="modulo5.html">Acessar Aula</a>
-</div>
+  if(localStorage.getItem("modulo4") === "concluido"){
+    document.getElementById("m4").classList.add("concluido");
+    document.getElementById("m4").innerText = "Módulo 4 ✅";
+  }
 
-<div class="card">
-  <h3>Módulo 6 - Uso Inteligente</h3>
-  <a class="button" href="modulo6.html">Acessar Aula</a>
-</div>
+  if(localStorage.getItem("modulo5") === "concluido"){
+    document.getElementById("m5").classList.add("concluido");
+    document.getElementById("m5").innerText = "Módulo 5 ✅";
+  }
 
-<br>
+  if(localStorage.getItem("modulo6") === "concluido"){
+    document.getElementById("m6").classList.add("concluido");
+    document.getElementById("m6").innerText = "Módulo 6 ✅";
+  }
+}
 
-<a href="index.html" class="button">⬅ Voltar</a>
+verificar();
+</script>
 
 </body>
 </html>
