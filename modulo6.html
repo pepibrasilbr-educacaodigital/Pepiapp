@@ -1,75 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Módulo 6</title>
-
-  <style>
-    body {
-      font-family: Arial;
-      background: #0b1f3a;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .box {
-      background: white;
-      color: black;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: auto;
-    }
-
-    .button {
-      background: #f1c40f;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-  </style>
-</head>
-
-<body>
-
-<h1>Módulo Final</h1>
-
-<div class="box">
-
-  <p>Nome da Escola:</p>
-  <input type="text" id="escola" placeholder="Digite o nome da escola">
-
-  <br><br>
-
-  <button class="button" onclick="gerarCertificado()">Gerar Certificado</button>
-
-</div>
-
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
-  authDomain: "pepi-brasil.firebaseapp.com",
-  projectId: "pepi-brasil",
-};
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-
-const db = firebase.firestore();
-
 function gerarCertificado(){
 
   let nome = localStorage.getItem("nomeAluno") || "Aluno";
   let turma = localStorage.getItem("turmaAluno") || "Turma";
-  let escola = document.getElementById("escola").value || "Não informada";
+  let escola = localStorage.getItem("escola") || "Não definida";
   let data = new Date().toLocaleDateString("pt-BR");
 
   let codigo = "PEPI-" + Math.floor(10000 + Math.random() * 90000);
@@ -77,7 +10,7 @@ function gerarCertificado(){
   let user = firebase.auth().currentUser;
 
   if(!user){
-    alert("Faça login como gestor primeiro");
+    alert("Faça login como gestor");
     return;
   }
 
@@ -91,7 +24,3 @@ function gerarCertificado(){
 
   alert("Certificado gerado com sucesso!");
 }
-</script>
-
-</body>
-</html>
