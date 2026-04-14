@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Módulo 6 - Final</title>
+  <title>Módulo 6</title>
 
   <style>
     body {
@@ -15,7 +15,7 @@
     .box {
       background: white;
       color: black;
-      padding: 25px;
+      padding: 20px;
       border-radius: 12px;
       max-width: 500px;
       margin: auto;
@@ -25,11 +25,9 @@
       background: #f1c40f;
       padding: 12px;
       border-radius: 10px;
-      color: black;
-      font-weight: bold;
       border: none;
       cursor: pointer;
-      margin-top: 10px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -39,19 +37,19 @@
 <h1>Módulo Final</h1>
 
 <div class="box">
-  <p>Parabéns! Você concluiu o programa.</p>
 
-  <button class="button" onclick="gerarCertificado()">
-    🎓 Gerar Certificado
-  </button>
+  <p>Nome da Escola:</p>
+  <input type="text" id="escola" placeholder="Digite o nome da escola">
+
+  <br><br>
+
+  <button class="button" onclick="gerarCertificado()">Gerar Certificado</button>
+
 </div>
-
-<br>
-
-<a href="aluno.html" class="button">⬅ Voltar</a>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
@@ -59,188 +57,39 @@ const firebaseConfig = {
   apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
   authDomain: "pepi-brasil.firebaseapp.com",
   projectId: "pepi-brasil",
-  storageBucket: "pepi-brasil.appspot.com",
-  messagingSenderId: "937753921449",
-  appId: "1:937753921449:web:b10c09928e625a905526b8"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 const db = firebase.firestore();
 
 function gerarCertificado(){
 
   let nome = localStorage.getItem("nomeAluno") || "Aluno";
   let turma = localStorage.getItem("turmaAluno") || "Turma";
+  let escola = document.getElementById("escola").value || "Não informada";
   let data = new Date().toLocaleDateString("pt-BR");
 
   let codigo = "PEPI-" + Math.floor(10000 + Math.random() * 90000);
 
+  let user = firebase.auth().currentUser;
+
+  if(!user){
+    alert("Faça login como gestor primeiro");
+    return;
+  }
+
   db.collection("certificados").doc(codigo).set({
     nome: nome,
     turma: turma,
-    data: data
+    data: data,
+    gestorId: user.uid,
+    escola: escola
   });
 
-  let link = "https://pepibrasilbr-educacaodigital.github.io/Pepiapp/validar.html?codigo=" + codigo;
-
-  let novaJanela = window.open("", "_blank");
-
-  novaJanela.document.write(`
-  <html>
-  <head>
-  <style>
-
-  body {
-    margin: 0;
-    font-family: "Times New Roman", serif;
-    background: #eaeaea;
-    display: flex;
-    justify-content: center;
-  }
-
-  .certificado {
-    width: 1000px;
-    height: 600px;
-    background: white;
-    border: 8px solid #0b1f3a;
-    padding: 40px;
-    box-sizing: border-box;
-    position: relative;
-  }
-
-  .topo {
-    text-align: center;
-  }
-
-  .logo img {
-    width: 70px;
-  }
-
-  h1 {
-    font-size: 34px;
-    letter-spacing: 4px;
-    color: #0b1f3a;
-    margin: 10px 0;
-  }
-
-  .linha {
-    width: 120px;
-    height: 2px;
-    background: #c9a227;
-    margin: 10px auto 20px;
-  }
-
-  .conteudo {
-    text-align: center;
-    margin-top: 30px;
-  }
-
-  h2 {
-    font-size: 32px;
-    color: #c9a227;
-    margin: 15px 0;
-  }
-
-  p {
-    font-size: 18px;
-    margin: 5px 0;
-  }
-
-  .rodape {
-    position: absolute;
-    bottom: 40px;
-    left: 40px;
-    right: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .assinatura {
-    text-align: center;
-  }
-
-  .linha2 {
-    width: 200px;
-    border-top: 1px solid black;
-    margin: 10px auto;
-  }
-
-  .codigo {
-    font-size: 13px;
-  }
-
-  .qr img {
-    width: 90px;
-  }
-
-  .botao {
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  button {
-    padding: 10px 20px;
-    border: none;
-    background: #0b1f3a;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-
-  </style>
-  </head>
-
-  <body>
-
-  <div>
-
-  <div class="certificado">
-
-    <div class="topo">
-      <div class="logo">
-        <img src="logo.PNG">
-      </div>
-
-      <h1>CERTIFICADO</h1>
-      <div class="linha"></div>
-    </div>
-
-    <div class="conteudo">
-      <p>Certificamos que</p>
-      <h2>${nome}</h2>
-      <p>da turma ${turma}</p>
-      <p>concluiu com êxito o programa</p>
-      <p><strong>PEPI Digital Shield</strong></p>
-      <p>Educação e Segurança Digital</p>
-    </div>
-
-    <div class="rodape">
-
-      <div class="assinatura">
-        <div class="linha2"></div>
-        <p>Coordenação PEPI Brasil</p>
-        <p>${data}</p>
-        <div class="codigo">Código: ${codigo}</div>
-      </div>
-
-      <div class="qr">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${link}">
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="botao">
-    <button onclick="window.print()">📄 Baixar PDF</button>
-  </div>
-
-  </div>
-
-  </body>
-  </html>
-  `);
+  alert("Certificado gerado com sucesso!");
 }
 </script>
 
