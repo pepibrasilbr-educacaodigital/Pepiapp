@@ -16,7 +16,7 @@ function gerarCertificado(){
         body {
           margin: 0;
           font-family: 'Georgia', serif;
-          background: white;
+          background: linear-gradient(135deg, #0b1f3a, #07142a);
         }
 
         .certificado {
@@ -24,8 +24,11 @@ function gerarCertificado(){
           height: 600px;
           margin: 20px auto;
           padding: 40px;
-          border: 8px solid #0b1f3a;
-          box-sizing: border-box;
+          background: white;
+          border-radius: 10px;
+          border: 10px solid #0b1f3a;
+          box-shadow: 0 0 40px rgba(0,0,0,0.3);
+          position: relative;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -36,13 +39,14 @@ function gerarCertificado(){
         }
 
         .logo img {
-          width: 100px;
+          width: 90px;
         }
 
         h1 {
           font-size: 36px;
           color: #0b1f3a;
           margin: 10px 0;
+          letter-spacing: 2px;
         }
 
         .conteudo {
@@ -50,7 +54,7 @@ function gerarCertificado(){
         }
 
         h2 {
-          font-size: 28px;
+          font-size: 30px;
           color: #facc15;
         }
 
@@ -79,9 +83,38 @@ function gerarCertificado(){
           width: 100px;
         }
 
+        .selo {
+          position: absolute;
+          top: 30px;
+          right: 30px;
+          border: 3px solid #facc15;
+          padding: 10px 20px;
+          border-radius: 50%;
+          font-size: 14px;
+          color: #facc15;
+          transform: rotate(15deg);
+          font-weight: bold;
+        }
+
+        .marca {
+          position: absolute;
+          bottom: 20px;
+          left: 20px;
+          opacity: 0.1;
+          font-size: 60px;
+          font-weight: bold;
+          color: #0b1f3a;
+        }
+
         .print {
           text-align: center;
           margin-top: 20px;
+        }
+
+        button {
+          padding: 10px;
+          font-size: 16px;
+          cursor: pointer;
         }
 
         @media print {
@@ -96,6 +129,9 @@ function gerarCertificado(){
     <body>
 
       <div class="certificado">
+
+        <div class="selo">VALIDADO</div>
+        <div class="marca">PEPI</div>
 
         <div class="topo">
           <div class="logo">
