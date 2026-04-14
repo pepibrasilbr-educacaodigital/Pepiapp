@@ -50,15 +50,7 @@
 <div class="box">
 
   <p>
-  A internet pode ser uma ferramenta poderosa para aprender, crescer e se desenvolver.
-  </p>
-
-  <p>
-  O uso inteligente envolve responsabilidade, equilíbrio e consciência.
-  </p>
-
-  <p>
-  Utilize a tecnologia para evoluir, estudar e construir um futuro melhor.
+  A internet pode ser uma ferramenta poderosa para aprender e crescer.
   </p>
 
   <button class="button" onclick="concluir()">Marcar como concluído</button>
@@ -70,10 +62,6 @@
   <button id="btnCertificado" class="button" onclick="gerarCertificado()" style="display:none;">
     🎓 Gerar Certificado
   </button>
-
-  <a class="button" href="pepi.pdf" target="_blank">
-    Ver conteúdo completo
-  </a>
 
 </div>
 
@@ -109,6 +97,8 @@ function gerarCertificado(){
   let nome = localStorage.getItem("nomeAluno");
   let turma = localStorage.getItem("turmaAluno");
 
+  let data = new Date().toLocaleDateString("pt-BR");
+
   let novaJanela = window.open("", "_blank");
 
   novaJanela.document.write(`
@@ -137,6 +127,14 @@ function gerarCertificado(){
           width: 800px;
           text-align: center;
           box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+          position: relative;
+        }
+
+        .logo {
+          font-size: 18px;
+          font-weight: bold;
+          color: #0b1f3a;
+          margin-bottom: 10px;
         }
 
         h1 {
@@ -156,11 +154,22 @@ function gerarCertificado(){
           margin: 10px 0;
         }
 
-        .footer {
+        .assinatura {
           margin-top: 40px;
+        }
+
+        .linha {
+          width: 200px;
+          border-top: 2px solid #000;
+          margin: 10px auto;
+        }
+
+        .footer {
+          margin-top: 20px;
           font-size: 14px;
           opacity: 0.7;
         }
+
       </style>
     </head>
 
@@ -168,6 +177,8 @@ function gerarCertificado(){
 
       <div class="container">
         <div class="certificado">
+
+          <div class="logo">PEPI BRASIL</div>
 
           <h1>🎓 CERTIFICADO</h1>
 
@@ -183,8 +194,13 @@ function gerarCertificado(){
 
           <p>Educação e Segurança Digital</p>
 
+          <div class="assinatura">
+            <div class="linha"></div>
+            <p>Coordenação PEPI Brasil</p>
+          </div>
+
           <div class="footer">
-            PEPI Brasil • Formação em Consciência Digital
+            Emitido em ${data}
           </div>
 
         </div>
