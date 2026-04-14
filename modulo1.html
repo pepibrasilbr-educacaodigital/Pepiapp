@@ -1,54 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <title>Módulo 1</title>
+<meta charset="UTF-8">
+<title>Módulo 1 - O Mundo Digital</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      background: #0b1f3a;
-      color: white;
-      text-align: center;
-      padding: 50px;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0b1f3a;
+  color: white;
+}
 
-    .box {
-      background: white;
-      color: black;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: auto;
-    }
+/* TOPO */
+.topo {
+  padding: 20px 40px;
+  font-weight: bold;
+  color: #f1c40f;
+}
 
-    button {
-      padding: 12px;
-      margin-top: 20px;
-      width: 100%;
-      background: #f1c40f;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+/* CONTAINER */
+.container {
+  padding: 40px;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* BOX */
+.box {
+  background: white;
+  color: black;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* TITULOS */
+h1 {
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+/* LISTA */
+ul {
+  padding-left: 20px;
+}
+
+/* ALERTA */
+.alerta {
+  background: #f1c40f;
+  color: black;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+/* PROFESSOR */
+.prof {
+  background: #27ae60;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* BOTÕES */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn {
+  background: #f1c40f;
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="topo">
+PEPI Brasil • Módulo 1
+</div>
 
-  <h2>Módulo 1</h2>
-  <p>Bem-vindo ao curso de Educação Digital.</p>
+<div class="container">
 
-  <button onclick="concluir()">Concluir Módulo</button>
+  <!-- TÍTULO -->
+  <div class="box">
+    <h1>🌐 O Mundo Digital</h1>
+    <p><strong>Objetivo:</strong> Compreender o que é a internet e como ela funciona no dia a dia.</p>
+  </div>
+
+  <!-- CONTEÚDO -->
+  <div class="box">
+    <h2>🧠 O que você vai aprender</h2>
+
+    <ul>
+      <li>A internet conecta pessoas e compartilha informações</li>
+      <li>Redes sociais permitem compartilhar fotos, vídeos e opiniões</li>
+      <li>Tudo que fazemos online deixa registros</li>
+    </ul>
+
+    <p>
+      A internet é um ambiente onde pessoas se conectam, compartilham informações e interagem.
+    </p>
+  </div>
+
+  <!-- ALERTA -->
+  <div class="alerta">
+    ⚠️ IMPORTANTE: Nada na internet é totalmente apagado. Pense antes de postar!
+  </div>
+
+  <!-- PROFESSOR -->
+  <div class="prof">
+    💬 "A internet é como uma cidade enorme onde tudo que você faz pode ser visto e lembrado."
+  </div>
+
+  <!-- BOTÕES -->
+  <div class="box">
+
+    <button class="btn" onclick="window.open('pdfs/modulo1.pdf')">
+      📥 Baixar Apostila
+    </button>
+
+    <button class="btn" onclick="concluir()">
+      ✅ Concluir Módulo
+    </button>
+
+  </div>
 
 </div>
 
 <script>
 function concluir(){
-  localStorage.setItem("modulo1", "ok");
-  window.location.href = "modulo2.html";
+
+  let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
+
+  if(atual === 1){
+    localStorage.setItem("moduloAtual", 2);
+    alert("Módulo concluído!");
+    window.location.href = "aluno.html";
+  }
+
 }
 </script>
 
