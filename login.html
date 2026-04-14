@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - PEPI</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #0b1f3a;
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      width: 200px;
+    }
+
+    .button {
+      background: #f1c40f;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Acesso do Aluno</h1>
+
+<input type="text" id="usuario" placeholder="Usuário"><br>
+<input type="password" id="senha" placeholder="Senha"><br>
+
+<button class="button" onclick="entrar()">Entrar</button>
+
+<p id="erro"></p>
+
+<script>
+function entrar(){
+  let user = document.getElementById("usuario").value;
+  let senha = document.getElementById("senha").value;
+
+  if(user === "aluno" && senha === "1234"){
+    window.location.href = "aluno.html";
+  } else {
+    document.getElementById("erro").innerText = "Acesso inválido";
+  }
+}
+</script>
+
+</body>
+</html>
