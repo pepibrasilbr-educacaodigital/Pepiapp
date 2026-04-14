@@ -1,121 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Painel do Gestor - PEPI</title>
+  <title>Painel do Gestor</title>
 
   <style>
     body {
-      margin: 0;
       font-family: Arial;
-      background: linear-gradient(180deg, #0b1f3a, #07142a);
+      background: #0b1f3a;
       color: white;
-      text-align: center;
       padding: 20px;
     }
 
     h1 {
-      margin-bottom: 20px;
+      text-align: center;
     }
 
-    .dashboard {
+    .topo {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 400px;
-      margin: auto;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-sair {
+      background: #e74c3c;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
     }
 
     .card {
-      background: #0f2a52;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    }
-
-    .number {
-      font-size: 28px;
-      font-weight: bold;
-      margin-top: 10px;
-      color: #facc15;
-    }
-
-    .status {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    .ok {
-      color: #2ecc71;
-    }
-
-    .warn {
-      color: #e74c3c;
-    }
-
-    .button {
-      display: block;
-      margin-top: 20px;
-      padding: 12px;
-      background: #facc15;
+      background: white;
       color: black;
+      padding: 15px;
+      margin: 10px 0;
       border-radius: 10px;
-      text-decoration: none;
+    }
+
+    .codigo {
       font-weight: bold;
+      color: #0b1f3a;
+    }
+
+    .btn {
+      background: #f1c40f;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 5px;
     }
   </style>
 </head>
 
 <body>
 
-<h1>Painel do Gestor</h1>
-
-<div class="dashboard">
-
-  <div class="card">
-    <h3>Progresso Geral</h3>
-    <div id="progresso" class="number">0%</div>
-  </div>
-
-  <div class="card">
-    <h3>Status do Programa</h3>
-    <div id="status" class="status">Carregando...</div>
-  </div>
-
-  <div class="card">
-    <h3>Módulos Concluídos</h3>
-    <div id="modulos" class="number">0 / 6</div>
-  </div>
-
+<div class="topo">
+  <h1>📊 Painel do Gestor</h1>
+  <button class="btn-sair" onclick="logout()">Sair</button>
 </div>
 
-<a href="index.html" class="button">⬅ Voltar</a>
+<div id="lista"></div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-function atualizar(){
-  let total = 6;
-  let feitos = 0;
+const firebaseConfig = {
+  apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
+  authDomain: "pepi-brasil.firebaseapp.com",
+  projectId: "pepi-brasil",
+  storageBucket: "pepi-brasil.appspot.com",
+  messagingSenderId: "937753921449",
+  appId: "1:937753921449:web:b10c09928e625a905526b8"
+};
 
-  for(let i=1; i<=6; i++){
-    if(localStorage.getItem("modulo"+i)){
-      feitos++;
-    }
-  }
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-  let porcentagem = Math.round((feitos/total)*100);
 
-  document.getElementById("progresso").innerText = porcentagem + "%";
-  document.getElementById("modulos").innerText = feitos + " / " + total;
+// 🔐 PROTEÇÃO DE LOGIN
+firebase.auth().onAuthStateChanged(function(user) {
 
-  if(porcentagem === 100){
-    document.getElementById("status").innerText = "Programa concluído";
-    document.getElementById("status").classList.add("ok");
+  if (!user) {
+    window.location.href = "login.html";
   } else {
-    document.getElementById("status").innerText = "Em andamento";
-    document.getElementById("status").classList.add("warn");
+    carregarCertificados();
   }
+
+});
+
+
+// 🚪 LOGOUT
+function logout(){
+  firebase.auth().signOut().then(() => {
+    window.location.href = "login.html";
+  });
 }
 
-atualizar();
+
+// 📊 CARREGAR CERTIFICADOS
+function carregarCertificados(){
+
+  db.collection("certificados").get().then(snapshot => {
+
+    let html = "";
+
+    snapshot.forEach(doc => {
+
+      let dados = doc.data();
+
+      html += `
+        <div class="card">
+          <p><strong>Nome:</strong> ${dados.nome}</p>
+          <p><strong>Turma:</strong> ${dados.turma}</p>
+          <p><strong>Data:</strong> ${dados.data}</p>
+          <p class="codigo">Código: ${doc.id}</p>
+
+          <a href="validar.html?codigo=${doc.id}">
+            <button class="btn">🔎 Validar</button>
+          </a>
+        </div>
+      `;
+    });
+
+    document.getElementById("lista").innerHTML = html;
+
+  });
+
+}
 </script>
 
 </body>
