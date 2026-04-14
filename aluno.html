@@ -6,11 +6,27 @@
 
 <style>
 body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
-.topo{padding:20px 40px;display:flex;justify-content:space-between;}
-.nome{color:#f1c40f;font-weight:bold;}
 
-.container{padding:40px;}
-.grid{display:flex;gap:20px;flex-wrap:wrap;}
+.topo{
+  padding:20px 40px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.nome{
+  color:#f1c40f;
+  font-weight:bold;
+}
+
+.container{
+  padding:40px;
+}
+
+.grid{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
 
 .card{
   background:#142c54;
@@ -19,7 +35,13 @@ body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
   width:250px;
 }
 
-.locked{opacity:0.4;}
+.locked{
+  opacity:0.4;
+}
+
+.concluido{
+  border:2px solid #2ecc71;
+}
 
 button{
   width:100%;
@@ -51,14 +73,11 @@ button{
 document.getElementById("nomeAluno").innerText =
 localStorage.getItem("nome") || "";
 
-// 🔥 CORREÇÃO IMPORTANTE
+// PROGRESSO REAL
 let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
 
-// 👉 SE PASSOU DO 6, RESETA
-if(atual > 6){
-  atual = 1;
-  localStorage.setItem("moduloAtual", 1);
-}
+// TOTAL
+const total = 6;
 
 // MÓDULOS
 const modulos = [
@@ -74,17 +93,23 @@ let grid = document.getElementById("grid");
 
 modulos.forEach((m, index) => {
 
-  let liberado = index < atual;
+  let numero = index + 1;
+
+  let liberado = numero <= atual;
+  let concluido = numero < atual;
 
   let div = document.createElement("div");
-  div.className = "card " + (liberado ? "" : "locked");
+
+  div.className = "card " +
+    (liberado ? "" : "locked") +
+    (concluido ? " concluido" : "");
 
   div.innerHTML = `
-    <h3>Módulo ${index+1}</h3>
+    <h3>Módulo ${numero}</h3>
 
     <button ${liberado ? "" : "disabled"}
     onclick="window.location.href='${m}'">
-      Acessar
+      ${liberado ? "Acessar" : "Bloqueado"}
     </button>
   `;
 
