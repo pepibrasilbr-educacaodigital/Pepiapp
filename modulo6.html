@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Módulo 6</title>
+  <title>Módulo 6 - Final</title>
 
   <style>
     body {
@@ -15,7 +15,7 @@
     .box {
       background: white;
       color: black;
-      padding: 20px;
+      padding: 25px;
       border-radius: 12px;
       max-width: 500px;
       margin: auto;
@@ -25,24 +25,22 @@
       background: #f1c40f;
       padding: 12px;
       border-radius: 10px;
-      text-decoration: none;
       color: black;
-      display: inline-block;
-      margin-top: 10px;
       font-weight: bold;
       border: none;
       cursor: pointer;
+      margin-top: 10px;
     }
   </style>
 </head>
 
 <body>
 
-<h1>Módulo 6 - Uso Inteligente</h1>
+<h1>Módulo Final</h1>
 
 <div class="box">
 
-  <p>Parabéns! Você chegou ao final do programa.</p>
+  <p>Parabéns! Você concluiu o programa.</p>
 
   <button class="button" onclick="gerarCertificado()">
     🎓 Gerar Certificado
@@ -90,18 +88,142 @@ function gerarCertificado(){
   let novaJanela = window.open("", "_blank");
 
   novaJanela.document.write(`
-    <html>
-    <body style="font-family:Times New Roman;text-align:center;padding:40px;">
-      <h1>CERTIFICADO</h1>
-      <p>${nome}</p>
-      <p>${turma}</p>
-      <p>${data}</p>
-      <p><strong>Código:</strong> ${codigo}</p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${link}">
-      <br><br>
-      <button onclick="window.print()">📄 Baixar PDF</button>
-    </body>
-    </html>
+  <html>
+  <head>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Times New Roman", serif;
+      background: #eaeaea;
+    }
+
+    .certificado {
+      width: 1100px;
+      height: 650px;
+      margin: 40px auto;
+      padding: 50px;
+      background: white;
+      border: 10px solid #0b1f3a;
+      box-sizing: border-box;
+    }
+
+    .inner {
+      border: 2px solid #c9a227;
+      height: 100%;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .topo {
+      text-align: center;
+    }
+
+    .logo img {
+      width: 70px;
+    }
+
+    h1 {
+      font-size: 36px;
+      letter-spacing: 4px;
+      color: #0b1f3a;
+    }
+
+    .linha {
+      width: 150px;
+      height: 2px;
+      background: #c9a227;
+      margin: 10px auto 20px;
+    }
+
+    .conteudo {
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 34px;
+      color: #c9a227;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    .rodape {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .assinatura {
+      text-align: center;
+    }
+
+    .linha2 {
+      width: 200px;
+      border-top: 1px solid black;
+      margin: 10px auto;
+    }
+
+    .codigo {
+      font-size: 13px;
+    }
+
+    .qr img {
+      width: 90px;
+    }
+
+  </style>
+  </head>
+
+  <body>
+
+  <div class="certificado">
+    <div class="inner">
+
+      <div class="topo">
+        <div class="logo">
+          <img src="logo.PNG">
+        </div>
+        <h1>CERTIFICADO</h1>
+        <div class="linha"></div>
+      </div>
+
+      <div class="conteudo">
+        <p>Certificamos que</p>
+        <h2>${nome}</h2>
+        <p>da turma ${turma}</p>
+        <p>concluiu com êxito o programa</p>
+        <p><strong>PEPI Digital Shield</strong></p>
+        <p>Educação e Segurança Digital</p>
+      </div>
+
+      <div class="rodape">
+
+        <div class="assinatura">
+          <div class="linha2"></div>
+          <p>Coordenação PEPI Brasil</p>
+          <p>${data}</p>
+          <div class="codigo">Código: ${codigo}</div>
+        </div>
+
+        <div class="qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${link}">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <button onclick="window.print()">📄 Baixar PDF</button>
+  </div>
+
+  </body>
+  </html>
   `);
 }
 </script>
