@@ -2,74 +2,19 @@
 <html>
 <head>
   <title>Módulo 1</title>
-
-  <style>
-    body {
-      font-family: Arial;
-      background: #0b1f3a;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .box {
-      background: white;
-      color: black;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: auto;
-    }
-
-    .button {
-      background: #f1c40f;
-      padding: 12px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: black;
-      display: inline-block;
-      margin-top: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-    }
-
-    .done {
-      background: #2ecc71;
-    }
-  </style>
 </head>
 
 <body>
 
-<h1>Módulo 1 - Identidade Digital</h1>
+<h2>Módulo 1</h2>
+<p>Conteúdo do módulo 1...</p>
 
-<div class="box">
-
-  <p>Sua identidade digital é tudo que você faz na internet.</p>
-
-  <button class="button" onclick="concluir()">Marcar como concluído</button>
-
-  <p id="status"></p>
-
-  <a class="button" href="pepi.pdf" target="_blank">
-    Ver conteúdo completo
-  </a>
-
-</div>
-
-<br>
-
-<a href="aluno.html" class="button">⬅ Voltar</a>
+<button onclick="concluir()">Concluir Módulo</button>
 
 <script>
 function concluir(){
-  localStorage.setItem("modulo1", "concluido");
-  document.getElementById("status").innerText = "✅ Aula concluída!";
-}
-
-if(localStorage.getItem("modulo1") === "concluido"){
-  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+  localStorage.setItem("modulo1", "ok");
+  window.location.href = "modulo2.html";
 }
 </script>
 
