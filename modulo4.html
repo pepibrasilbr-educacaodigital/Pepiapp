@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Módulo 4 - Riscos Graves</title>
+  <title>Módulo 4</title>
 
   <style>
     body {
@@ -9,28 +9,26 @@
       background: #0b1f3a;
       color: white;
       text-align: center;
-      padding: 20px;
+      padding: 50px;
     }
 
     .box {
       background: white;
       color: black;
-      padding: 20px;
+      padding: 30px;
       border-radius: 12px;
       max-width: 500px;
       margin: auto;
     }
 
-    .button {
-      background: #f1c40f;
+    button {
       padding: 12px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: black;
-      display: inline-block;
-      margin-top: 10px;
-      font-weight: bold;
+      margin-top: 20px;
+      width: 100%;
+      background: #f1c40f;
       border: none;
+      border-radius: 8px;
+      font-weight: bold;
       cursor: pointer;
     }
   </style>
@@ -38,45 +36,28 @@
 
 <body>
 
-<h1>Módulo 4 - Riscos Graves</h1>
-
 <div class="box">
 
-  <p>
-  A internet pode expor crianças e adolescentes a riscos sérios, como golpes, aliciamento e conteúdos perigosos.
-  </p>
+  <h2>Módulo 4</h2>
+  <p>Conteúdo do módulo 4.</p>
 
-  <p>
-  Pessoas mal-intencionadas podem fingir ser confiáveis para enganar.
-  </p>
-
-  <p>
-  Sempre desconfie de desconhecidos e peça ajuda a um adulto de confiança.
-  </p>
-
-  <button class="button" onclick="concluir()">Marcar como concluído</button>
-
-  <p id="status"></p>
-
-  <a class="button" href="pepi.pdf" target="_blank">
-    Ver conteúdo completo
-  </a>
+  <button onclick="concluir()">Concluir Módulo</button>
 
 </div>
 
-<br>
-
-<a href="aluno.html" class="button">⬅ Voltar</a>
-
 <script>
-function concluir(){
-  localStorage.setItem("modulo4", "concluido");
-  document.getElementById("status").innerText = "✅ Aula concluída!";
+
+// 🔒 bloqueio
+if(localStorage.getItem("modulo3") !== "ok"){
+  alert("Conclua o módulo 3 primeiro");
+  window.location.href = "modulo3.html";
 }
 
-if(localStorage.getItem("modulo4") === "concluido"){
-  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+function concluir(){
+  localStorage.setItem("modulo4", "ok");
+  window.location.href = "modulo5.html";
 }
+
 </script>
 
 </body>
