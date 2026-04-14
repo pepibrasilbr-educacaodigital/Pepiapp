@@ -13,7 +13,12 @@
     }
 
     h1 {
+      margin-bottom: 5px;
+    }
+
+    #boasVindas {
       margin-bottom: 20px;
+      opacity: 0.8;
     }
 
     .progress-container {
@@ -69,13 +74,11 @@
 <body>
 
 <h1>Área do Aluno</h1>
+<p id="boasVindas"></p>
 
-<!-- BARRA DE PROGRESSO -->
 <div class="progress-container">
   <div id="barra" class="progress-bar">0%</div>
 </div>
-
-<!-- MÓDULOS -->
 
 <div id="m1" class="card">
   Módulo 1
@@ -132,7 +135,18 @@ function atualizar(){
   barra.innerText = porcentagem + "%";
 }
 
+function mostrarNome(){
+  let nome = localStorage.getItem("nomeAluno");
+  let turma = localStorage.getItem("turmaAluno");
+
+  if(nome){
+    document.getElementById("boasVindas").innerText =
+      "Olá, " + nome + " • Turma: " + turma;
+  }
+}
+
 atualizar();
+mostrarNome();
 </script>
 
 </body>
