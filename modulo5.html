@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Módulo 5 - Saúde Mental</title>
+  <title>Módulo 5</title>
 
   <style>
     body {
@@ -9,28 +9,26 @@
       background: #0b1f3a;
       color: white;
       text-align: center;
-      padding: 20px;
+      padding: 50px;
     }
 
     .box {
       background: white;
       color: black;
-      padding: 20px;
+      padding: 30px;
       border-radius: 12px;
       max-width: 500px;
       margin: auto;
     }
 
-    .button {
-      background: #f1c40f;
+    button {
       padding: 12px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: black;
-      display: inline-block;
-      margin-top: 10px;
-      font-weight: bold;
+      margin-top: 20px;
+      width: 100%;
+      background: #f1c40f;
       border: none;
+      border-radius: 8px;
+      font-weight: bold;
       cursor: pointer;
     }
   </style>
@@ -38,45 +36,28 @@
 
 <body>
 
-<h1>Módulo 5 - Saúde Mental</h1>
-
 <div class="box">
 
-  <p>
-  O uso excessivo da internet pode impactar a saúde mental, causando ansiedade e comparação constante.
-  </p>
+  <h2>Módulo 5</h2>
+  <p>Conteúdo do módulo 5.</p>
 
-  <p>
-  Nem tudo que vemos nas redes sociais é real. Muitas pessoas mostram apenas o lado positivo da vida.
-  </p>
-
-  <p>
-  Equilibrar o tempo online com atividades fora das telas é essencial para o bem-estar.
-  </p>
-
-  <button class="button" onclick="concluir()">Marcar como concluído</button>
-
-  <p id="status"></p>
-
-  <a class="button" href="pepi.pdf" target="_blank">
-    Ver conteúdo completo
-  </a>
+  <button onclick="concluir()">Concluir Módulo</button>
 
 </div>
 
-<br>
-
-<a href="aluno.html" class="button">⬅ Voltar</a>
-
 <script>
-function concluir(){
-  localStorage.setItem("modulo5", "concluido");
-  document.getElementById("status").innerText = "✅ Aula concluída!";
+
+// 🔒 bloqueio
+if(localStorage.getItem("modulo4") !== "ok"){
+  alert("Conclua o módulo 4 primeiro");
+  window.location.href = "modulo4.html";
 }
 
-if(localStorage.getItem("modulo5") === "concluido"){
-  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+function concluir(){
+  localStorage.setItem("modulo5", "ok");
+  window.location.href = "modulo6.html";
 }
+
 </script>
 
 </body>
