@@ -1,63 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <title>Módulo 5</title>
-
-  <style>
-    body {
-      font-family: Arial;
-      background: #0b1f3a;
-      color: white;
-      text-align: center;
-      padding: 50px;
-    }
-
-    .box {
-      background: white;
-      color: black;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: auto;
-    }
-
-    button {
-      padding: 12px;
-      margin-top: 20px;
-      width: 100%;
-      background: #f1c40f;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Módulo 5</title>
+<style>
+body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
+.topo{padding:20px 40px;color:#f1c40f;font-weight:bold;}
+.container{padding:40px;max-width:800px;margin:auto;}
+.box{background:white;color:black;padding:25px;border-radius:12px;margin-bottom:20px;}
+button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;cursor:pointer;}
+</style>
 </head>
-
 <body>
 
+<div class="topo">PEPI Brasil • Módulo 5</div>
+
+<div class="container">
+
 <div class="box">
+<h1>🚨 Proteção e Segurança</h1>
+</div>
 
-  <h2>Módulo 5</h2>
-  <p>Conteúdo do módulo 5.</p>
-
-  <button onclick="concluir()">Concluir Módulo</button>
+<div class="box">
+<button onclick="window.open('modulo5.pdf')">📥 Baixar Apostila</button>
+<button onclick="concluir()">✅ Concluir</button>
+</div>
 
 </div>
 
 <script>
-
-// 🔒 bloqueio
-if(localStorage.getItem("modulo4") !== "ok"){
-  alert("Conclua o módulo 4 primeiro");
-  window.location.href = "modulo4.html";
-}
-
 function concluir(){
-  localStorage.setItem("modulo5", "ok");
-  window.location.href = "modulo6.html";
+let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
+if(atual === 5){
+localStorage.setItem("moduloAtual", 6);
+window.location.href="aluno.html";
 }
-
+}
 </script>
 
 </body>
