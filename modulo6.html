@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Área do Aluno</title>
+  <title>Conclusão</title>
 
   <style>
     body {
@@ -18,23 +18,18 @@
       padding: 30px;
       border-radius: 12px;
       text-align: center;
-      width: 300px;
-    }
-
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
+      width: 320px;
     }
 
     button {
-      padding: 10px;
+      padding: 12px;
       width: 100%;
       background: #f1c40f;
       border: none;
-      cursor: pointer;
-      font-weight: bold;
       border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -43,33 +38,49 @@
 
 <div class="box">
 
-  <h2>Área do Aluno</h2>
+  <h2>Parabéns 🎉</h2>
+  <p>Você concluiu o curso!</p>
 
-  <input type="text" id="nome" placeholder="Seu nome">
-  <input type="text" id="turma" placeholder="Sua turma">
-  <input type="text" id="escola" placeholder="Nome da escola">
-
-  <button onclick="entrar()">Entrar</button>
+  <button onclick="gerarCertificado()">Gerar Certificado</button>
 
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
 <script>
-function entrar(){
+const firebaseConfig = {
+  apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
+  authDomain: "pepi-brasil.firebaseapp.com",
+  projectId: "pepi-brasil"
+};
 
-  let nome = document.getElementById("nome").value;
-  let turma = document.getElementById("turma").value;
-  let escola = document.getElementById("escola").value;
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-  if(!nome || !turma || !escola){
-    alert("Preencha todos os campos");
-    return;
-  }
+// 🔒 bloqueio final
+if(localStorage.getItem("modulo5") !== "ok"){
+  alert("Conclua o módulo 5 primeiro");
+  window.location.href = "modulo5.html";
+}
 
-  localStorage.setItem("nome", nome);
-  localStorage.setItem("turma", turma);
-  localStorage.setItem("escola", escola);
+function gerarCertificado(){
 
-  window.location.href = "modulo1.html";
+  let nome = localStorage.getItem("nome");
+  let turma = localStorage.getItem("turma");
+  let escola = localStorage.getItem("escola");
+
+  let codigo = "PEPI-" + Math.floor(Math.random() * 100000);
+  let data = new Date().toLocaleDateString();
+
+  db.collection("certificados").doc(codigo).set({
+    nome,
+    turma,
+    escola,
+    data
+  });
+
+  alert("Certificado enviado para a escola!");
 
 }
 </script>
