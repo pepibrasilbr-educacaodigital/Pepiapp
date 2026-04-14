@@ -1,167 +1,190 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>PEPI Brasil</title>
+<meta charset="UTF-8">
+<title>PEPI Brasil</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #0b1f3a;
-      color: white;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0b1f3a;
+  color: white;
+}
 
-    /* TOPO */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px 40px;
-      align-items: center;
-    }
+/* TOPO */
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+}
 
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-      color: #f1c40f;
-    }
+.logo {
+  color: #f1c40f;
+  font-weight: bold;
+}
 
-    .btn-login {
-      background: #f1c40f;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.btn-login {
+  background: #f1c40f;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-    /* HERO */
-    .hero {
-      padding: 80px 40px;
-      max-width: 600px;
-    }
+/* HERO */
+.hero {
+  padding: 60px 40px;
+  max-width: 600px;
+}
 
-    .hero h1 {
-      font-size: 40px;
-      margin-bottom: 20px;
-    }
+.hero h1 {
+  font-size: 40px;
+}
 
-    .hero p {
-      font-size: 18px;
-      margin-bottom: 30px;
-      color: #ccc;
-    }
+.btns {
+  margin-top: 20px;
+}
 
-    .btns {
-      display: flex;
-      gap: 15px;
-    }
+button {
+  padding: 12px 20px;
+  margin-right: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-    .btn-aluno {
-      background: #f1c40f;
-      color: black;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.aluno {
+  background: #f1c40f;
+}
 
-    .btn-gestor {
-      background: transparent;
-      border: 2px solid #f1c40f;
-      color: #f1c40f;
-      padding: 15px 25px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.gestor {
+  background: transparent;
+  border: 2px solid #f1c40f;
+  color: #f1c40f;
+}
 
-    /* CARDS */
-    .section {
-      padding: 40px;
-    }
+/* SECTIONS */
+.section {
+  padding: 40px;
+}
 
-    .cards {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
-    .card {
-      background: #142c54;
-      padding: 20px;
-      border-radius: 10px;
-      width: 250px;
-    }
+.card {
+  background: #142c54;
+  padding: 20px;
+  border-radius: 10px;
+  width: 250px;
+  cursor: pointer;
+}
 
-    .card h3 {
-      margin-bottom: 10px;
-    }
+/* MODULOS */
+.modulos {
+  display: none;
+  margin-top: 30px;
+}
 
-    .card p {
-      color: #bbb;
-      font-size: 14px;
-    }
+.modulo {
+  background: #1e3a6d;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
 
-  </style>
+</style>
 </head>
 
 <body>
 
-<!-- TOPO -->
 <div class="header">
   <div class="logo">PEPI Brasil</div>
-
-  <a href="login.html">
-    <button class="btn-login">Entrar</button>
-  </a>
+  <a href="login.html"><button class="btn-login">Entrar</button></a>
 </div>
 
-<!-- HERO -->
 <div class="hero">
-  <h1>Educação Digital para Crianças</h1>
-  <p>Prepare alunos para o mundo digital com segurança, consciência e responsabilidade.</p>
+  <h1>Educação Digital para Escolas</h1>
 
   <div class="btns">
-    <a href="modulo6.html">
-      <button class="btn-aluno">👨‍🎓 Acessar Curso</button>
-    </a>
-
-    <a href="login.html">
-      <button class="btn-gestor">🏫 Área do Gestor</button>
-    </a>
+    <a href="modulo6.html"><button class="aluno">👨‍🎓 Acessar Curso</button></a>
+    <a href="login.html"><button class="gestor">🏫 Área do Gestor</button></a>
   </div>
 </div>
 
-<!-- BENEFÍCIOS -->
+<!-- SOLUÇÕES -->
 <div class="section">
-  <h2>O que você vai aprender</h2>
+  <h2>Serviços e Soluções PEPI</h2>
 
   <div class="cards">
 
-    <div class="card">
-      <h3>🌐 Mundo Digital</h3>
-      <p>Entenda como a internet funciona e como ela impacta sua vida.</p>
+    <div class="card" onclick="abrir('plataforma')">
+      <h3>📊 Plataforma</h3>
+      <p>Módulos educativos para alunos</p>
     </div>
 
-    <div class="card">
-      <h3>🔐 Segurança</h3>
-      <p>Aprenda a se proteger online e evitar riscos digitais.</p>
+    <div class="card" onclick="abrir('palestras')">
+      <h3>🎤 Palestras</h3>
+      <p>Temas mensais para alunos</p>
     </div>
 
-    <div class="card">
-      <h3>📱 Redes Sociais</h3>
-      <p>Use redes sociais com responsabilidade e consciência.</p>
-    </div>
-
-    <div class="card">
-      <h3>🎓 Certificação</h3>
-      <p>Receba certificado ao concluir o curso.</p>
+    <div class="card" onclick="abrir('formacoes')">
+      <h3>📚 Formações</h3>
+      <p>Capacitação da equipe escolar</p>
     </div>
 
   </div>
+
+  <!-- PLATAFORMA -->
+  <div id="plataforma" class="modulos">
+    <h3>Módulos do Curso</h3>
+
+    <div class="modulo">Módulo 1 - Mundo Digital</div>
+    <div class="modulo">Módulo 2 - Redes Sociais</div>
+    <div class="modulo">Módulo 3 - Segurança</div>
+    <div class="modulo">Módulo 4 - Comportamento</div>
+    <div class="modulo">Módulo 5 - Riscos</div>
+    <div class="modulo">Módulo 6 - Certificação</div>
+  </div>
+
+  <!-- PALESTRAS -->
+  <div id="palestras" class="modulos">
+    <h3>Palestras Mensais</h3>
+
+    <div class="modulo">Bullying e Cyberbullying</div>
+    <div class="modulo">Segurança Digital</div>
+    <div class="modulo">Cidadania e Ética</div>
+    <div class="modulo">Inclusão e Respeito</div>
+    <div class="modulo">Proteção contra Violência</div>
+  </div>
+
+  <!-- FORMAÇÕES -->
+  <div id="formacoes" class="modulos">
+    <h3>Formações para Equipe</h3>
+
+    <div class="modulo">Lei da Escuta Protegida</div>
+    <div class="modulo">Lei do Bullying</div>
+    <div class="modulo">Identificação de Violência</div>
+    <div class="modulo">Fluxos de Atendimento</div>
+    <div class="modulo">Marketing e Uso de Imagem</div>
+  </div>
+
 </div>
+
+<script>
+function abrir(secao){
+
+  document.getElementById("plataforma").style.display="none";
+  document.getElementById("palestras").style.display="none";
+  document.getElementById("formacoes").style.display="none";
+
+  document.getElementById(secao).style.display="block";
+}
+</script>
 
 </body>
 </html>
