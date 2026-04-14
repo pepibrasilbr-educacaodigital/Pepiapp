@@ -17,11 +17,13 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
+  align-items: center;
 }
 
 .logo {
-  color: #f1c40f;
+  font-size: 22px;
   font-weight: bold;
+  color: #f1c40f;
 }
 
 .btn-login {
@@ -29,43 +31,52 @@ body {
   border: none;
   padding: 10px 15px;
   border-radius: 6px;
+  font-weight: bold;
   cursor: pointer;
 }
 
 /* HERO */
 .hero {
-  padding: 60px 40px;
+  padding: 80px 40px;
   max-width: 600px;
 }
 
 .hero h1 {
   font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  color: #ccc;
+  margin-bottom: 30px;
 }
 
 .btns {
-  margin-top: 20px;
+  display: flex;
+  gap: 15px;
 }
 
-button {
-  padding: 12px 20px;
-  margin-right: 10px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.aluno {
+.btn-aluno {
   background: #f1c40f;
+  color: black;
+  border: none;
 }
 
-.gestor {
+.btn-gestor {
   background: transparent;
   border: 2px solid #f1c40f;
   color: #f1c40f;
 }
 
-/* SECTIONS */
+/* BOTÕES */
+button {
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* SEÇÕES */
 .section {
   padding: 40px;
 }
@@ -80,21 +91,22 @@ button {
   background: #142c54;
   padding: 20px;
   border-radius: 10px;
-  width: 250px;
+  width: 260px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-/* MODULOS */
-.modulos {
-  display: none;
-  margin-top: 30px;
+.card:hover {
+  transform: scale(1.05);
 }
 
-.modulo {
-  background: #1e3a6d;
-  padding: 15px;
-  border-radius: 8px;
-  margin: 10px 0;
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #bbb;
+  font-size: 14px;
 }
 
 </style>
@@ -102,89 +114,59 @@ button {
 
 <body>
 
+<!-- TOPO -->
 <div class="header">
   <div class="logo">PEPI Brasil</div>
-  <a href="login.html"><button class="btn-login">Entrar</button></a>
+
+  <a href="login.html">
+    <button class="btn-login">Entrar</button>
+  </a>
 </div>
 
+<!-- HERO -->
 <div class="hero">
-  <h1>Educação Digital para Escolas</h1>
+  <h1>Educação Digital para Crianças</h1>
+  <p>Prepare alunos, professores e famílias para o mundo digital com segurança e consciência.</p>
 
   <div class="btns">
-    <a href="modulo6.html"><button class="aluno">👨‍🎓 Acessar Curso</button></a>
-    <a href="login.html"><button class="gestor">🏫 Área do Gestor</button></a>
+    <a href="modulo6.html">
+      <button class="btn-aluno">👨‍🎓 Acessar Curso</button>
+    </a>
+
+    <a href="login.html">
+      <button class="btn-gestor">🏫 Área do Gestor</button>
+    </a>
   </div>
 </div>
 
 <!-- SOLUÇÕES -->
 <div class="section">
+
   <h2>Serviços e Soluções PEPI</h2>
 
   <div class="cards">
 
-    <div class="card" onclick="abrir('plataforma')">
-      <h3>📊 Plataforma</h3>
-      <p>Módulos educativos para alunos</p>
+    <!-- PLATAFORMA -->
+    <div class="card" onclick="window.location.href='modulo1.html'">
+      <h3>📊 Plataforma Educacional</h3>
+      <p>Módulos com acompanhamento e certificação para alunos.</p>
     </div>
 
-    <div class="card" onclick="abrir('palestras')">
+    <!-- PALESTRAS -->
+    <div class="card" onclick="window.location.href='palestras.html'">
       <h3>🎤 Palestras</h3>
-      <p>Temas mensais para alunos</p>
+      <p>Trilha mensal com temas como bullying, segurança e cidadania.</p>
     </div>
 
-    <div class="card" onclick="abrir('formacoes')">
+    <!-- FORMAÇÕES -->
+    <div class="card">
       <h3>📚 Formações</h3>
-      <p>Capacitação da equipe escolar</p>
+      <p>Capacitação da equipe escolar com foco em legislação e proteção.</p>
     </div>
 
-  </div>
-
-  <!-- PLATAFORMA -->
-  <div id="plataforma" class="modulos">
-    <h3>Módulos do Curso</h3>
-
-    <div class="modulo">Módulo 1 - Mundo Digital</div>
-    <div class="modulo">Módulo 2 - Redes Sociais</div>
-    <div class="modulo">Módulo 3 - Segurança</div>
-    <div class="modulo">Módulo 4 - Comportamento</div>
-    <div class="modulo">Módulo 5 - Riscos</div>
-    <div class="modulo">Módulo 6 - Certificação</div>
-  </div>
-
-  <!-- PALESTRAS -->
-  <div id="palestras" class="modulos">
-    <h3>Palestras Mensais</h3>
-
-    <div class="modulo">Bullying e Cyberbullying</div>
-    <div class="modulo">Segurança Digital</div>
-    <div class="modulo">Cidadania e Ética</div>
-    <div class="modulo">Inclusão e Respeito</div>
-    <div class="modulo">Proteção contra Violência</div>
-  </div>
-
-  <!-- FORMAÇÕES -->
-  <div id="formacoes" class="modulos">
-    <h3>Formações para Equipe</h3>
-
-    <div class="modulo">Lei da Escuta Protegida</div>
-    <div class="modulo">Lei do Bullying</div>
-    <div class="modulo">Identificação de Violência</div>
-    <div class="modulo">Fluxos de Atendimento</div>
-    <div class="modulo">Marketing e Uso de Imagem</div>
   </div>
 
 </div>
-
-<script>
-function abrir(secao){
-
-  document.getElementById("plataforma").style.display="none";
-  document.getElementById("palestras").style.display="none";
-  document.getElementById("formacoes").style.display="none";
-
-  document.getElementById(secao).style.display="block";
-}
-</script>
 
 </body>
 </html>
