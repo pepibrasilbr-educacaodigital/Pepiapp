@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Formações</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#0b1f3a;}
+.topo{color:white;text-align:center;padding:15px;}
+.progresso{background:#ddd;height:10px;}
+.barra{height:10px;background:#f1c40f;width:20%;}
+.container{padding:30px;}
+.box{background:white;border-radius:12px;padding:25px;max-width:600px;margin:auto;text-align:center;}
+button{padding:12px;width:100%;background:#f1c40f;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<div class="topo">
+<h3>Formações Educacionais</h3>
+</div>
+
+<div class="progresso">
+<div class="barra" id="barra"></div>
+</div>
+
+<div class="container">
+
+<div class="box">
+
+<h2 id="titulo"></h2>
+<p id="descricao"></p>
+
+<button onclick="concluir()">Concluir Formação</button>
+
+</div>
+
+</div>
+
+<script>
+
+let atual = parseInt(localStorage.getItem("formacaoAtual")) || 1;
+
+const dados = [
+  {titulo:"Lei da Escuta Protegida", desc:"Compreensão da legislação e aplicação na escola."},
+  {titulo:"Lei do Bullying", desc:"Responsabilidade da escola e práticas preventivas."},
+  {titulo:"Identificação de Violência", desc:"Sinais e como agir corretamente."},
+  {titulo:"Fluxos de Atendimento", desc:"Encaminhamento correto dentro da rede."},
+  {titulo:"Marketing e Uso de Imagem", desc:"Proteção legal e exposição digital."}
+];
+
+// BLOQUEIO
+if(atual > dados.length){
+  atual = dados.length;
+}
+
+// EXIBE
+document.getElementById("titulo").innerText = dados[atual-1].titulo;
+document.getElementById("descricao").innerText = dados[atual-1].desc;
+
+// PROGRESSO
+let porcentagem = (atual / dados.length) * 100;
+document.getElementById("barra").style.width = porcentagem + "%";
+
+function concluir(){
+
+  if(atual < dados.length){
+    localStorage.setItem("formacaoAtual", atual + 1);
+    location.reload();
+  } else {
+    alert("Formação concluída com sucesso!");
+  }
+
+}
+
+</script>
+
+</body>
+</html>
