@@ -8,8 +8,8 @@
       font-family: Arial;
       background: #0b1f3a;
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 20px;
     }
 
     .box {
@@ -28,8 +28,10 @@
       text-decoration: none;
       color: black;
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 10px;
       font-weight: bold;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -40,19 +42,11 @@
 
 <div class="box">
 
-  <p>
-  Privacidade digital significa proteger suas informações pessoais na internet.
-  </p>
+  <p>Privacidade digital é proteger suas informações pessoais.</p>
 
-  <p>
-  Nunca compartilhe senhas, endereço, escola ou dados pessoais com desconhecidos.
-  </p>
+  <button class="button" onclick="concluir()">Marcar como concluído</button>
 
-  <p>
-  Pense sempre: “Eu mostraria isso para qualquer pessoa na vida real?”
-  </p>
-
-  <p><b>Reflexão:</b> Você já compartilhou algo que depois se arrependeu?</p>
+  <p id="status"></p>
 
   <a class="button" href="pepi.pdf" target="_blank">
     Ver conteúdo completo
@@ -63,6 +57,17 @@
 <br>
 
 <a href="aluno.html" class="button">⬅ Voltar</a>
+
+<script>
+function concluir(){
+  localStorage.setItem("modulo2", "concluido");
+  document.getElementById("status").innerText = "✅ Aula concluída!";
+}
+
+if(localStorage.getItem("modulo2") === "concluido"){
+  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+}
+</script>
 
 </body>
 </html>
