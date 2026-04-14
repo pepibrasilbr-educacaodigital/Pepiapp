@@ -73,11 +73,19 @@ button{
 document.getElementById("nomeAluno").innerText =
 localStorage.getItem("nome") || "";
 
-// PROGRESSO REAL
-let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
+// 🔥 CORREÇÃO FORTE
+let atual = parseInt(localStorage.getItem("moduloAtual"));
 
-// TOTAL
-const total = 6;
+// 👉 GARANTE QUE SEMPRE TEM VALOR
+if(!atual || atual < 1){
+  atual = 1;
+  localStorage.setItem("moduloAtual", 1);
+}
+
+// 👉 NÃO DEIXA QUEBRAR
+if(atual > 6){
+  atual = 6;
+}
 
 // MÓDULOS
 const modulos = [
