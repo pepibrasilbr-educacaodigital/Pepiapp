@@ -5,65 +5,91 @@
 
   <style>
     body {
+      margin: 0;
       font-family: Arial;
-      background-color: #0b1f3a;
+      background: linear-gradient(180deg, #0b1f3a, #07142a);
       color: white;
       text-align: center;
-      padding: 30px;
+    }
+
+    .container {
+      padding: 40px 20px;
+      max-width: 500px;
+      margin: auto;
     }
 
     h1 {
-      font-size: 36px;
+      font-size: 32px;
       margin-bottom: 10px;
     }
 
-    p {
+    .subtitle {
+      opacity: 0.7;
       margin-bottom: 30px;
     }
 
-    .button {
-      background: #f1c40f;
-      padding: 15px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: black;
-      display: block;
-      margin: 10px auto;
-      width: 250px;
-      font-weight: bold;
+    .card {
+      background: #0f2a52;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
     }
 
-    .box {
-      background: white;
+    .button {
+      display: block;
+      padding: 15px;
+      margin-top: 15px;
+      background: #facc15;
       color: black;
-      padding: 20px;
-      margin: 15px auto;
       border-radius: 12px;
-      max-width: 400px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      opacity: 0.5;
     }
   </style>
 </head>
 
 <body>
 
+<div class="container">
+
 <h1>PEPI Digital Shield</h1>
+<p class="subtitle">Proteção e educação digital para crianças e adolescentes</p>
 
-<p>Educação e proteção digital para crianças e adolescentes</p>
+<div class="card">
+  <h3>Acesso à Plataforma</h3>
 
-<a class="button" href="login.html">
-Área do Aluno
-</a>
+  <a class="button" href="login.html">
+    🎓 Área do Aluno
+  </a>
 
-<a class="button" href="gestor.html">
-Área do Gestor
-</a>
-
-<div class="box">
-Programa de proteção digital para crianças e adolescentes.
+  <a class="button" href="gestor.html">
+    🏫 Área do Gestor
+  </a>
 </div>
 
-<div class="box">
-Acesse conteúdos educativos, acompanhe o progresso e desenvolva consciência digital.
+<div class="card">
+  <h3>Sobre o Programa</h3>
+  <p>
+  Um programa completo de conscientização digital, segurança online e desenvolvimento saudável no ambiente digital.
+  </p>
+</div>
+
+<div class="footer">
+© PEPI Brasil • Educação Digital
+</div>
+
 </div>
 
 </body>
