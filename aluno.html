@@ -1,152 +1,161 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <title>Área do Aluno</title>
+<meta charset="UTF-8">
+<title>Área do Aluno</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      background: linear-gradient(180deg, #0b1f3a, #07142a);
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0b1f3a;
+  color: white;
+}
 
-    h1 {
-      margin-bottom: 5px;
-    }
+/* TOPO */
+.topo {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+}
 
-    #boasVindas {
-      margin-bottom: 20px;
-      opacity: 0.8;
-    }
+.nome {
+  color: #f1c40f;
+  font-weight: bold;
+}
 
-    .progress-container {
-      background: #1c3b6b;
-      border-radius: 10px;
-      overflow: hidden;
-      margin: 20px auto;
-      width: 90%;
-      max-width: 400px;
-    }
+/* PROGRESSO */
+.progresso-container {
+  padding: 0 40px;
+  margin-bottom: 20px;
+}
 
-    .progress-bar {
-      height: 20px;
-      background: #2ecc71;
-      width: 0%;
-      text-align: center;
-      color: black;
-      font-weight: bold;
-    }
+.barra-bg {
+  background: #444;
+  height: 12px;
+  border-radius: 10px;
+}
 
-    .card {
-      background: #0f2a52;
-      padding: 20px;
-      border-radius: 15px;
-      margin: 10px auto;
-      max-width: 400px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    }
+.barra {
+  height: 12px;
+  background: #f1c40f;
+  width: 0%;
+  border-radius: 10px;
+}
 
-    .button {
-      display: block;
-      margin-top: 10px;
-      padding: 12px;
-      background: #facc15;
-      color: black;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+/* TEXTO PROGRESSO */
+.info {
+  padding: 0 40px;
+  margin-bottom: 20px;
+}
 
-    .bloqueado {
-      opacity: 0.5;
-      pointer-events: none;
-    }
+/* GRID */
+.container {
+  padding: 40px;
+}
 
-    .concluido {
-      background: #2ecc71 !important;
-      color: white !important;
-    }
-  </style>
+.grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #142c54;
+  padding: 20px;
+  border-radius: 10px;
+  width: 260px;
+}
+
+.locked {
+  opacity: 0.4;
+}
+
+button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #f1c40f;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
-<h1>Área do Aluno</h1>
-<p id="boasVindas"></p>
-
-<div class="progress-container">
-  <div id="barra" class="progress-bar">0%</div>
+<div class="topo">
+  <div>Área do Aluno</div>
+  <div class="nome" id="nomeAluno"></div>
 </div>
 
-<div id="m1" class="card">
-  Módulo 1
-  <a href="modulo1.html" class="button">Acessar</a>
+<div class="info" id="textoProgresso"></div>
+
+<div class="progresso-container">
+  <div class="barra-bg">
+    <div class="barra" id="barra"></div>
+  </div>
 </div>
 
-<div id="m2" class="card">
-  Módulo 2
-  <a href="modulo2.html" class="button">Acessar</a>
-</div>
-
-<div id="m3" class="card">
-  Módulo 3
-  <a href="modulo3.html" class="button">Acessar</a>
-</div>
-
-<div id="m4" class="card">
-  Módulo 4
-  <a href="modulo4.html" class="button">Acessar</a>
-</div>
-
-<div id="m5" class="card">
-  Módulo 5
-  <a href="modulo5.html" class="button">Acessar</a>
-</div>
-
-<div id="m6" class="card">
-  Módulo 6
-  <a href="modulo6.html" class="button">Acessar</a>
+<div class="container">
+  <div class="grid" id="grid"></div>
 </div>
 
 <script>
-function atualizar(){
-  let total = 6;
-  let feitos = 0;
 
-  for(let i=1; i<=6; i++){
-    let modulo = document.getElementById("m"+i);
+// NOME
+document.getElementById("nomeAluno").innerText =
+localStorage.getItem("nome") || "";
 
-    if(localStorage.getItem("modulo"+i)){
-      modulo.classList.add("concluido");
-      feitos++;
-    }
+// PROGRESSO
+let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
 
-    if(i > 1 && !localStorage.getItem("modulo"+(i-1))){
-      modulo.classList.add("bloqueado");
-    }
-  }
+const total = 6;
 
-  let porcentagem = Math.round((feitos/total)*100);
-  let barra = document.getElementById("barra");
+// CALCULAR %
+let porcentagem = ((atual-1) / total) * 100;
 
-  barra.style.width = porcentagem + "%";
-  barra.innerText = porcentagem + "%";
-}
+// BARRA
+document.getElementById("barra").style.width = porcentagem + "%";
 
-function mostrarNome(){
-  let nome = localStorage.getItem("nomeAluno");
-  let turma = localStorage.getItem("turmaAluno");
+// TEXTO
+document.getElementById("textoProgresso").innerText =
+"Você concluiu " + (atual-1) + " de " + total + " módulos";
 
-  if(nome){
-    document.getElementById("boasVindas").innerText =
-      "Olá, " + nome + " • Turma: " + turma;
-  }
-}
+// MÓDULOS
+const modulos = [
+  "modulo1.html",
+  "modulo2.html",
+  "modulo3.html",
+  "modulo4.html",
+  "modulo5.html",
+  "modulo6.html"
+];
 
-atualizar();
-mostrarNome();
+let grid = document.getElementById("grid");
+
+modulos.forEach((m, index) => {
+
+  let liberado = index < atual;
+
+  let div = document.createElement("div");
+  div.className = "card " + (liberado ? "" : "locked");
+
+  div.innerHTML = `
+    <h3>Módulo ${index+1}</h3>
+
+    <button ${liberado ? "" : "disabled"}
+    onclick="window.location.href='${m}'">
+      Ver Módulo
+    </button>
+  `;
+
+  grid.appendChild(div);
+
+});
+
 </script>
 
 </body>
