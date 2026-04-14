@@ -44,13 +44,16 @@
       border-radius: 10px;
       flex: 1;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
-    canvas {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
+    .btn-relatorio {
+      margin: 10px 0;
+      padding: 10px;
+      background: #0b1f3a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
     .escola {
@@ -80,6 +83,10 @@
 
 <div class="container">
 
+  <button class="btn-relatorio" onclick="gerarRelatorio()">
+    📄 Gerar Relatório
+  </button>
+
   <div class="cards">
     <div class="card-top">
       <h2 id="total">0</h2>
@@ -96,8 +103,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-<!-- GRÁFICO -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
@@ -109,6 +114,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+
+let dadosGlobais = [];
 
 firebase.auth().onAuthStateChanged(user => {
 
@@ -122,6 +129,8 @@ firebase.auth().onAuthStateChanged(user => {
   .get()
   .then(snapshot => {
 
+    dadosGlobais = [];
+
     let total = snapshot.size;
     document.getElementById("total").innerText = total;
 
@@ -132,6 +141,11 @@ firebase.auth().onAuthStateChanged(user => {
 
       let d = doc.data();
 
+      dadosGlobais.push({
+        ...d,
+        codigo: doc.id
+      });
+
       if(!escolas[d.escola]){
         escolas[d.escola] = 0;
       }
@@ -140,22 +154,19 @@ firebase.auth().onAuthStateChanged(user => {
 
     });
 
-    // 🔥 GRÁFICO
-    let labels = Object.keys(escolas);
-    let valores = Object.values(escolas);
-
+    // gráfico
     new Chart(document.getElementById("grafico"), {
       type: "bar",
       data: {
-        labels: labels,
+        labels: Object.keys(escolas),
         datasets: [{
           label: "Certificados por escola",
-          data: valores
+          data: Object.values(escolas)
         }]
       }
     });
 
-    // LISTA
+    // lista
     for(let escola in escolas){
       html += `<div class="escola"><h3>${escola}</h3></div>`;
     }
@@ -166,6 +177,35 @@ firebase.auth().onAuthStateChanged(user => {
 
 });
 
+// 🔥 RELATÓRIO
+function gerarRelatorio(){
+
+  let lista = "";
+
+  dadosGlobais.forEach(item => {
+    lista += `<p>${item.nome} - ${item.turma} (${item.escola})</p>`;
+  });
+
+  let novaJanela = window.open("", "_blank");
+
+  novaJanela.document.write(`
+    <html>
+    <body style="font-family:Arial;padding:40px;">
+      <h1>Relatório PEPI Brasil</h1>
+
+      <p><strong>Total de certificados:</strong> ${dadosGlobais.length}</p>
+
+      <h3>Alunos:</h3>
+      ${lista}
+
+      <br><br>
+      <button onclick="window.print()">Baixar PDF</button>
+    </body>
+    </html>
+  `);
+}
+
+// logout
 function logout(){
   firebase.auth().signOut().then(() => {
     window.location.href = "login.html";
