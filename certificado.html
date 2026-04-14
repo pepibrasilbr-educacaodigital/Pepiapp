@@ -62,14 +62,16 @@ h1 {
   align-items: center;
 }
 
+/* ASSINATURA */
 .assinatura {
   text-align: left;
 }
 
 .assinatura img {
-  width: 150px;
+  width: 220px;
 }
 
+/* QR */
 .qr {
   text-align: right;
 }
@@ -108,8 +110,8 @@ button {
 
     <!-- ASSINATURA -->
     <div class="assinatura">
-      <img src="assinatura.png">
-      <div>Direção PEPI Brasil</div>
+      <img src="assinatura.PNG">
+      <div>PEPI Brasil</div>
     </div>
 
     <!-- QR CODE -->
@@ -130,7 +132,7 @@ button {
 let nome = localStorage.getItem("nome") || "Aluno";
 let escola = localStorage.getItem("escola") || "";
 
-// GERAR CÓDIGO ÚNICO
+// GERAR CÓDIGO
 let codigo = "PEPI-" + Math.floor(Math.random()*1000000);
 
 // DATA
@@ -142,7 +144,7 @@ document.getElementById("escola").innerText = "Instituição: " + escola;
 document.getElementById("data").innerText = "Data: " + hoje;
 document.getElementById("codigo").innerText = "Código: " + codigo;
 
-// QR CODE (gera automático via API)
+// QR CODE
 let urlValidacao = "https://pepibrasilbr-educacaodigital.github.io/Pepiapp/?certificado=" + codigo;
 
 document.getElementById("qrcode").src =
