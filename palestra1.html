@@ -2,28 +2,96 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Palestra 1</title>
+<title>Palestra 1 • PEPI Brasil</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
-.container{padding:40px;max-width:800px;margin:auto;}
-.box{background:white;color:black;padding:25px;border-radius:12px;margin-bottom:20px;}
-button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;}
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b1f3a;
+  color:white;
+}
+
+/* TOPO */
+.topo{
+  padding:20px 40px;
+  color:#f1c40f;
+  font-weight:bold;
+}
+
+/* CONTAINER */
+.container{
+  padding:40px;
+  max-width:800px;
+  margin:auto;
+}
+
+/* BOX */
+.box{
+  background:white;
+  color:black;
+  padding:25px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+/* BOTÃO */
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+  background:#f1c40f;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* VOLTAR */
+.voltar{
+  background:#ccc;
+}
 </style>
 </head>
 
 <body>
 
+<div class="topo">PEPI Brasil • Palestra 1</div>
+
 <div class="container">
 
+<!-- TEMA -->
 <div class="box">
 <h1>🎤 Bullying e Cyberbullying</h1>
-<p>Entenda os impactos e como agir.</p>
+
+<p>
+Nesta palestra, abordamos o impacto do bullying e do cyberbullying na vida de crianças e adolescentes.
+</p>
+
+<p>
+Você vai entender:
+</p>
+
+<ul>
+<li>O que é bullying e cyberbullying</li>
+<li>Como identificar sinais</li>
+<li>Consequências emocionais</li>
+<li>Como agir e buscar ajuda</li>
+</ul>
+
 </div>
 
+<!-- MATERIAL -->
 <div class="box">
 <button onclick="window.open('palestra1.pdf')">
-📥 Baixar Material
+📥 Baixar Material da Palestra
+</button>
+</div>
+
+<!-- VOLTAR -->
+<div class="box">
+<button class="voltar" onclick="window.location.href='palestras.html'">
+⬅️ Voltar para Palestras
 </button>
 </div>
 
