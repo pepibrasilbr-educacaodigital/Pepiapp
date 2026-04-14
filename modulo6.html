@@ -1,3 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Módulo 6 - Uso Inteligente</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #0b1f3a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .box {
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .button {
+      background: #f1c40f;
+      padding: 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: black;
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .final {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #2ecc71;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Módulo 6 - Uso Inteligente</h1>
+
+<div class="box">
+
+  <p>A internet pode ser uma ferramenta poderosa para aprender e crescer.</p>
+
+  <button class="button" onclick="concluir()">Marcar como concluído</button>
+
+  <p id="status"></p>
+
+  <div id="finalMsg" class="final"></div>
+
+  <button id="btnCertificado" class="button" onclick="gerarCertificado()" style="display:none;">
+    🎓 Ver Certificado
+  </button>
+
+</div>
+
+<br>
+
+<a href="aluno.html" class="button">⬅ Voltar</a>
+
+<script>
+function concluir(){
+  localStorage.setItem("modulo6", "concluido");
+  document.getElementById("status").innerText = "✅ Aula concluída!";
+  verificarFinal();
+}
+
+function verificarFinal(){
+  let completo = true;
+
+  for(let i=1; i<=6; i++){
+    if(!localStorage.getItem("modulo"+i)){
+      completo = false;
+    }
+  }
+
+  if(completo){
+    document.getElementById("finalMsg").innerText =
+      "🎉 Parabéns! Você concluiu todo o programa!";
+    
+    document.getElementById("btnCertificado").style.display = "inline-block";
+  }
+}
+
 function gerarCertificado(){
   let nome = localStorage.getItem("nomeAluno");
   let turma = localStorage.getItem("turmaAluno");
@@ -85,12 +178,11 @@ function gerarCertificado(){
 
         .selo {
           position: absolute;
-          top: 30px;
-          right: 30px;
+          top: 20px;
+          right: 20px;
           border: 3px solid #facc15;
-          padding: 10px 20px;
+          padding: 8px 15px;
           border-radius: 50%;
-          font-size: 14px;
           color: #facc15;
           transform: rotate(15deg);
           font-weight: bold;
@@ -100,7 +192,7 @@ function gerarCertificado(){
           position: absolute;
           bottom: 20px;
           left: 20px;
-          opacity: 0.1;
+          opacity: 0.08;
           font-size: 60px;
           font-weight: bold;
           color: #0b1f3a;
@@ -108,7 +200,7 @@ function gerarCertificado(){
 
         .print {
           text-align: center;
-          margin-top: 20px;
+          margin-top: 10px;
         }
 
         button {
@@ -174,3 +266,13 @@ function gerarCertificado(){
     </html>
   `);
 }
+
+if(localStorage.getItem("modulo6") === "concluido"){
+  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+}
+
+verificarFinal();
+</script>
+
+</body>
+</html>
