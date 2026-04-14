@@ -6,47 +6,41 @@
 
 <style>
 body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
-.topo{padding:20px 40px;color:#f1c40f;font-weight:bold;}
 .container{padding:40px;max-width:800px;margin:auto;}
 .box{background:white;color:black;padding:25px;border-radius:12px;margin-bottom:20px;}
-button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;cursor:pointer;}
+button{width:100%;padding:12px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;}
 </style>
 </head>
 
 <body>
 
-<div class="topo">PEPI Brasil • Módulo 1</div>
-
 <div class="container">
 
 <div class="box">
-<h1>🌐 O Mundo Digital</h1>
-<p>Compreender o que é a internet e como ela funciona.</p>
+<h1>Módulo 1</h1>
+<p>Conteúdo do módulo 1</p>
 </div>
 
 <div class="box">
-<ul>
-<li>A internet conecta pessoas</li>
-<li>Redes sociais compartilham conteúdos</li>
-<li>Tudo deixa rastro digital</li>
-</ul>
-</div>
-
-<div class="box">
-<button onclick="window.open('modulo1.pdf')">📥 Baixar Apostila</button>
-<button onclick="concluir()">✅ Concluir</button>
+<button onclick="concluir()">✅ Concluir Módulo</button>
 </div>
 
 </div>
 
 <script>
+
 function concluir(){
-let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
-if(atual === 1){
-localStorage.setItem("moduloAtual", 2);
-window.location.href="aluno.html";
+
+  let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
+
+  if(atual === 1){
+    localStorage.setItem("moduloAtual", 2);
+  }
+
+  window.location.href = "aluno.html";
+
 }
-}
+
 </script>
 
 </body>
