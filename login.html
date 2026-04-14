@@ -16,7 +16,7 @@
     .box {
       background: white;
       padding: 30px;
-      border-radius: 10px;
+      border-radius: 12px;
       text-align: center;
       width: 300px;
     }
@@ -34,6 +34,15 @@
       border: none;
       cursor: pointer;
       font-weight: bold;
+      border-radius: 8px;
+    }
+
+    a {
+      display: block;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #0b1f3a;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -45,9 +54,10 @@
 
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="senha" placeholder="Senha">
-  <input type="text" id="escola" placeholder="Nome da Escola">
 
   <button onclick="login()">Entrar</button>
+
+  <a href="cadastro.html">Criar conta</a>
 
   <p id="erro" style="color:red;"></p>
 </div>
@@ -70,20 +80,15 @@ function login(){
 
   let email = document.getElementById("email").value;
   let senha = document.getElementById("senha").value;
-  let escola = document.getElementById("escola").value;
 
   firebase.auth().signInWithEmailAndPassword(email, senha)
   .then(() => {
-
-    // 🔥 SALVA A ESCOLA
-    localStorage.setItem("escola", escola);
-
     window.location.href = "gestor.html";
-
   })
   .catch(() => {
-    document.getElementById("erro").innerText = "Login inválido";
+    document.getElementById("erro").innerText = "Email ou senha inválidos";
   });
+
 }
 </script>
 
