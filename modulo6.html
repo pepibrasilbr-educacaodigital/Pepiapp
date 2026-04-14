@@ -1,87 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <title>Conclusão</title>
+  <meta charset="UTF-8">
+  <title>Iniciar Curso | PEPI Brasil</title>
 
   <style>
     body {
+      margin: 0;
       font-family: Arial;
-      background: #0b1f3a;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: linear-gradient(135deg, #0b1f3a, #142c54);
+      color: white;
       height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .box {
-      background: white;
-      padding: 30px;
+    .container {
+      display: flex;
+      max-width: 900px;
+      width: 90%;
       border-radius: 12px;
-      text-align: center;
-      width: 320px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    .left {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .left h1 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .left p {
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .right {
+      flex: 1;
+      background: white;
+      color: black;
+      padding: 40px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
 
     button {
-      padding: 12px;
       width: 100%;
+      padding: 14px;
       background: #f1c40f;
       border: none;
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 15px;
+      font-size: 16px;
     }
+
+    .logo {
+      color: #f1c40f;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
   </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-  <h2>Parabéns 🎉</h2>
-  <p>Você concluiu o curso!</p>
+  <div class="left">
+    <div class="logo">PEPI Brasil</div>
+    <h1>Bem-vindo ao Curso</h1>
+    <p>Aprenda a usar a internet com segurança, consciência e responsabilidade.</p>
+  </div>
 
-  <button onclick="gerarCertificado()">Gerar Certificado</button>
+  <div class="right">
+
+    <h2>Começar</h2>
+
+    <input type="text" id="nome" placeholder="Seu nome">
+    <input type="text" id="turma" placeholder="Sua turma">
+    <input type="text" id="escola" placeholder="Nome da escola">
+
+    <button onclick="entrar()">Começar Curso</button>
+
+  </div>
 
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyDbebqGKrR6jfrWWPjRyZ3dMpVjQf-M7uI",
-  authDomain: "pepi-brasil.firebaseapp.com",
-  projectId: "pepi-brasil"
-};
+function entrar(){
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+  let nome = document.getElementById("nome").value;
+  let turma = document.getElementById("turma").value;
+  let escola = document.getElementById("escola").value;
 
-// 🔒 bloqueio final
-if(localStorage.getItem("modulo5") !== "ok"){
-  alert("Conclua o módulo 5 primeiro");
-  window.location.href = "modulo5.html";
-}
+  if(!nome || !turma || !escola){
+    alert("Preencha todos os campos");
+    return;
+  }
 
-function gerarCertificado(){
+  localStorage.setItem("nome", nome);
+  localStorage.setItem("turma", turma);
+  localStorage.setItem("escola", escola);
 
-  let nome = localStorage.getItem("nome");
-  let turma = localStorage.getItem("turma");
-  let escola = localStorage.getItem("escola");
-
-  let codigo = "PEPI-" + Math.floor(Math.random() * 100000);
-  let data = new Date().toLocaleDateString();
-
-  db.collection("certificados").doc(codigo).set({
-    nome,
-    turma,
-    escola,
-    data
-  });
-
-  alert("Certificado enviado para a escola!");
-
+  window.location.href = "modulo1.html";
 }
 </script>
 
