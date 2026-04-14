@@ -1,121 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Iniciar Curso | PEPI Brasil</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: linear-gradient(135deg, #0b1f3a, #142c54);
-      color: white;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .container {
-      display: flex;
-      max-width: 900px;
-      width: 90%;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    }
-
-    .left {
-      flex: 1;
-      padding: 40px;
-    }
-
-    .left h1 {
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
-
-    .left p {
-      color: #ccc;
-      margin-bottom: 30px;
-    }
-
-    .right {
-      flex: 1;
-      background: white;
-      color: black;
-      padding: 40px;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      background: #f1c40f;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .logo {
-      color: #f1c40f;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-  </style>
+<meta charset="UTF-8">
+<title>Módulo 6</title>
+<style>
+body{margin:0;font-family:Arial;background:#0b1f3a;color:white;}
+.topo{padding:20px 40px;color:#f1c40f;font-weight:bold;}
+.container{padding:40px;max-width:800px;margin:auto;}
+.box{background:white;color:black;padding:25px;border-radius:12px;margin-bottom:20px;}
+button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;background:#f1c40f;font-weight:bold;cursor:pointer;}
+</style>
 </head>
-
 <body>
+
+<div class="topo">PEPI Brasil • Módulo 6</div>
 
 <div class="container">
 
-  <div class="left">
-    <div class="logo">PEPI Brasil</div>
-    <h1>Bem-vindo ao Curso</h1>
-    <p>Aprenda a usar a internet com segurança, consciência e responsabilidade.</p>
-  </div>
+<div class="box">
+<h1>🎓 Conclusão</h1>
+<p>Parabéns por concluir o curso!</p>
+</div>
 
-  <div class="right">
-
-    <h2>Começar</h2>
-
-    <input type="text" id="nome" placeholder="Seu nome">
-    <input type="text" id="turma" placeholder="Sua turma">
-    <input type="text" id="escola" placeholder="Nome da escola">
-
-    <button onclick="entrar()">Começar Curso</button>
-
-  </div>
+<div class="box">
+<button onclick="window.open('modulo6.pdf')">📥 Baixar Apostila</button>
+<button onclick="concluir()">🏆 Finalizar Curso</button>
+</div>
 
 </div>
 
 <script>
-function entrar(){
-
-  let nome = document.getElementById("nome").value;
-  let turma = document.getElementById("turma").value;
-  let escola = document.getElementById("escola").value;
-
-  if(!nome || !turma || !escola){
-    alert("Preencha todos os campos");
-    return;
-  }
-
-  localStorage.setItem("nome", nome);
-  localStorage.setItem("turma", turma);
-  localStorage.setItem("escola", escola);
-
-  window.location.href = "modulo1.html";
+function concluir(){
+let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
+if(atual === 6){
+localStorage.setItem("moduloAtual", 7);
+alert("Curso concluído!");
+window.location.href="aluno.html";
+}
 }
 </script>
 
