@@ -8,8 +8,8 @@
       font-family: Arial;
       background: #0b1f3a;
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 20px;
     }
 
     .box {
@@ -28,8 +28,10 @@
       text-decoration: none;
       color: black;
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 10px;
       font-weight: bold;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -41,18 +43,20 @@
 <div class="box">
 
   <p>
-  A internet pode expor crianças e adolescentes a riscos graves, como aliciamento, golpes e conteúdos perigosos.
+  A internet pode expor crianças e adolescentes a riscos sérios, como golpes, aliciamento e conteúdos perigosos.
   </p>
 
   <p>
-  Pessoas mal-intencionadas podem fingir ser alguém confiável para ganhar acesso e manipular.
+  Pessoas mal-intencionadas podem fingir ser confiáveis para enganar.
   </p>
 
   <p>
-  Nunca aceite pedidos de desconhecidos e sempre converse com um adulto de confiança em caso de dúvida.
+  Sempre desconfie de desconhecidos e peça ajuda a um adulto de confiança.
   </p>
 
-  <p><b>Reflexão:</b> Você saberia identificar uma situação perigosa online?</p>
+  <button class="button" onclick="concluir()">Marcar como concluído</button>
+
+  <p id="status"></p>
 
   <a class="button" href="pepi.pdf" target="_blank">
     Ver conteúdo completo
@@ -63,6 +67,17 @@
 <br>
 
 <a href="aluno.html" class="button">⬅ Voltar</a>
+
+<script>
+function concluir(){
+  localStorage.setItem("modulo4", "concluido");
+  document.getElementById("status").innerText = "✅ Aula concluída!";
+}
+
+if(localStorage.getItem("modulo4") === "concluido"){
+  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+}
+</script>
 
 </body>
 </html>
