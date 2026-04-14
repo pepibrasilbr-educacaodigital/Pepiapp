@@ -1,1 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>PEPI App</title>
 
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b1f3a;
+  color:white;
+}
+
+/* TRANSIÇÃO */
+.fade{
+  animation:fade 0.5s;
+}
+
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+/* TELAS */
+.tela{
+  display:none;
+}
+
+.ativa{
+  display:block;
+}
+
+/* LOGIN */
+.login{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.box{
+  background:#142c54;
+  padding:30px;
+  border-radius:12px;
+  width:300px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:6px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+  background:#f1c40f;
+  font-weight:bold;
+}
+
+/* TOPO */
+.topo{
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+}
+
+/* GRID */
+.grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  padding:20px;
+}
+
+.card{
+  background:#142c54;
+  padding:20px;
+  border-radius:10px;
+  width:250px;
+}
+
+.locked{
+  opacity:0.3;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="login" class="tela ativa login fade">
+  <div class="box">
+    <h2>Entrar</h2>
+    <input id="nomeInput" placeholder="Seu nome">
+    <button onclick="entrar()">Entrar</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="home" class="tela">
+
+<div class="topo">
+  <div>PEPI App</div>
+  <div id="nome"></div>
+</div>
+
+<div class="grid" id="modulos"></div>
+
+</div>
+
+<script>
+
+// TROCAR TELA
+function abrirTela(id){
+  document.querySelectorAll(".tela").forEach(t=>{
+    t.classList.remove("ativa");
+  });
+
+  let tela = document.getElementById(id);
+  tela.classList.add("ativa");
+  tela.classList.add("fade");
+}
+
+// LOGIN
+function entrar(){
+
+  let nome = document.getElementById("nomeInput").value;
+
+  if(!nome) return;
+
+  localStorage.setItem("nome", nome);
+
+  iniciar();
+
+  abrirTela("home");
+
+}
+
+// AUTO LOGIN
+if(localStorage.getItem("nome")){
+  iniciar();
+  abrirTela("home");
+}
+
+// SISTEMA
+function iniciar(){
+
+  document.getElementById("nome").innerText =
+  localStorage.getItem("nome");
+
+  let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
+
+  const modulos = [
+    "Módulo 1",
+    "Módulo 2",
+    "Módulo 3",
+    "Módulo 4",
+    "Módulo 5",
+    "Módulo 6"
+  ];
+
+  let container = document.getElementById("modulos");
+
+  container.innerHTML = "";
+
+  modulos.forEach((m,i)=>{
+
+    let num = i+1;
+    let liberado = num <= atual;
+
+    let div = document.createElement("div");
+
+    div.className = "card " + (liberado ? "" : "locked");
+
+    div.innerHTML = `
+      <h3>${m}</h3>
+      <button ${liberado ? "" : "disabled"}
+      onclick="abrirModulo(${num})">
+        ${liberado ? "Entrar" : "Bloqueado"}
+      </button>
+    `;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+// ABRIR MÓDULO
+function abrirModulo(n){
+
+  window.location.href = "modulo"+n+".html";
+
+}
+
+</script>
+
+</body>
+</html>
