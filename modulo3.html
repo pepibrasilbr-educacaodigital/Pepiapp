@@ -8,8 +8,8 @@
       font-family: Arial;
       background: #0b1f3a;
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 20px;
     }
 
     .box {
@@ -28,8 +28,10 @@
       text-decoration: none;
       color: black;
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 10px;
       font-weight: bold;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -41,18 +43,20 @@
 <div class="box">
 
   <p>
-  Violência digital acontece quando alguém usa a internet para ferir, humilhar ou ameaçar outra pessoa.
+  Violência digital acontece quando alguém usa a internet para ferir ou humilhar outra pessoa.
   </p>
 
   <p>
-  Isso inclui xingamentos, exposição, criação de perfis falsos e compartilhamento de conteúdos sem permissão.
+  Isso inclui xingamentos, exposição, perfis falsos e compartilhamento sem permissão.
   </p>
 
   <p>
-  Mesmo “brincadeiras” podem machucar e causar consequências sérias.
+  O respeito também deve existir no ambiente digital.
   </p>
 
-  <p><b>Reflexão:</b> Você já viu alguém sendo atacado na internet? Como você reagiu?</p>
+  <button class="button" onclick="concluir()">Marcar como concluído</button>
+
+  <p id="status"></p>
 
   <a class="button" href="pepi.pdf" target="_blank">
     Ver conteúdo completo
@@ -63,6 +67,17 @@
 <br>
 
 <a href="aluno.html" class="button">⬅ Voltar</a>
+
+<script>
+function concluir(){
+  localStorage.setItem("modulo3", "concluido");
+  document.getElementById("status").innerText = "✅ Aula concluída!";
+}
+
+if(localStorage.getItem("modulo3") === "concluido"){
+  document.getElementById("status").innerText = "✅ Você já concluiu este módulo";
+}
+</script>
 
 </body>
 </html>
