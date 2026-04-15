@@ -12,29 +12,18 @@ body{
   color:white;
 }
 
-/* TRANSIÇÃO */
-.fade{
-  animation:fade 0.5s;
-}
-
-@keyframes fade{
-  from{opacity:0}
-  to{opacity:1}
-}
-
 /* TELAS */
 .tela{
   display:none;
 }
 
 .ativa{
-  display:block;
+  display:flex;
 }
 
 /* LOGIN */
 .login{
   height:100vh;
-  display:flex;
   justify-content:center;
   align-items:center;
 }
@@ -44,6 +33,7 @@ body{
   padding:30px;
   border-radius:12px;
   width:300px;
+  animation:fade 0.5s;
 }
 
 input{
@@ -64,14 +54,17 @@ button{
   font-weight:bold;
 }
 
-/* TOPO */
+/* HOME */
+.home{
+  flex-direction:column;
+}
+
 .topo{
   padding:20px;
   display:flex;
   justify-content:space-between;
 }
 
-/* GRID */
 .grid{
   display:flex;
   flex-wrap:wrap;
@@ -84,10 +77,17 @@ button{
   padding:20px;
   border-radius:10px;
   width:250px;
+  animation:fade 0.5s;
 }
 
 .locked{
   opacity:0.3;
+}
+
+/* ANIMAÇÃO */
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
 }
 </style>
 </head>
@@ -95,7 +95,7 @@ button{
 <body>
 
 <!-- LOGIN -->
-<div id="login" class="tela ativa login fade">
+<div id="login" class="tela login ativa">
   <div class="box">
     <h2>Entrar</h2>
     <input id="nomeInput" placeholder="Seu nome">
@@ -104,7 +104,7 @@ button{
 </div>
 
 <!-- HOME -->
-<div id="home" class="tela">
+<div id="home" class="tela home">
 
 <div class="topo">
   <div>PEPI App</div>
@@ -123,9 +123,7 @@ function abrirTela(id){
     t.classList.remove("ativa");
   });
 
-  let tela = document.getElementById(id);
-  tela.classList.add("ativa");
-  tela.classList.add("fade");
+  document.getElementById(id).classList.add("ativa");
 }
 
 // LOGIN
@@ -140,7 +138,6 @@ function entrar(){
   iniciar();
 
   abrirTela("home");
-
 }
 
 // AUTO LOGIN
@@ -158,12 +155,12 @@ function iniciar(){
   let atual = parseInt(localStorage.getItem("moduloAtual")) || 1;
 
   const modulos = [
-    "Módulo 1",
-    "Módulo 2",
-    "Módulo 3",
-    "Módulo 4",
-    "Módulo 5",
-    "Módulo 6"
+    "modulo1.html",
+    "modulo2.html",
+    "modulo3.html",
+    "modulo4.html",
+    "modulo5.html",
+    "modulo6.html"
   ];
 
   let container = document.getElementById("modulos");
@@ -172,17 +169,17 @@ function iniciar(){
 
   modulos.forEach((m,i)=>{
 
-    let num = i+1;
-    let liberado = num <= atual;
+    let numero = i+1;
+    let liberado = numero <= atual;
 
     let div = document.createElement("div");
 
     div.className = "card " + (liberado ? "" : "locked");
 
     div.innerHTML = `
-      <h3>${m}</h3>
+      <h3>Módulo ${numero}</h3>
       <button ${liberado ? "" : "disabled"}
-      onclick="abrirModulo(${num})">
+      onclick="window.location.href='${m}'">
         ${liberado ? "Entrar" : "Bloqueado"}
       </button>
     `;
@@ -190,13 +187,6 @@ function iniciar(){
     container.appendChild(div);
 
   });
-
-}
-
-// ABRIR MÓDULO
-function abrirModulo(n){
-
-  window.location.href = "modulo"+n+".html";
 
 }
 
